@@ -11,10 +11,10 @@ int main(int argc, char **argv) {
    uint16_t addr;
    int first_letter;
    int second_letter;
-   inc count;
+   int count;
    int letter;
    int i;
-   uint8_t word_str[5];
+   uint8_t word_str[8];
    FILE *fpin;
    FILE *fpout;
 
@@ -59,8 +59,8 @@ int main(int argc, char **argv) {
    second_letter = -1;
 
    count = 0;
-   while (!feof(fpin))) {
-      if (fread(word_str,1,5,fpin) == 5) {
+   while (!feof(fpin)) {
+      if (fgets(word_str,8,fpin) == (char*)word_str) {
          for (i = 0; i < 5; i++) {
             letter = (int) (word_str[i] - 'a');
             if ((letter < 0) || (letter > 25)) {

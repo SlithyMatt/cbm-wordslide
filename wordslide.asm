@@ -53,14 +53,27 @@ WORD_ZERO = WORD_TABLE + LUT_SIZE
 word_table_size:
 .res 2
 
+scratch:
+.res 2
+
 remainder:
+guess_index:
+.res 1
+
+correct:
 .res 1
 
 random_seed:
 .res 2
 
-scratch:
-.res 2
+guess:
+.res 5
+
+not_word:
+.byte "not a word    ",0
+
+try_again:
+.byte "try again     ",0
 
 .if .def(__CX16__)
 ZP_PTR = $30
@@ -240,14 +253,195 @@ start:
    lda ZP_PTR+1
    adc #>WORD_ZERO
    sta ZP_PTR+1            ; ZP_PTR = word address
+   ; copy selected word to answer string variable
+   ldy #0
+@copy_loop:
+   lda (ZP_PTR),y
+   sta answer,y
+   iny
+   cpy #5
+   bne @copy_loop
+   ; initialize round
+   lda #0
+   sta guess_index
+@game_loop:
+   jsr play_round
+   lda correct
+   cmp #5
+   beq @win
+   inc guess_index
+   lda guess_index
+   cmp #6
+   bne @game_loop
+   ; lost the game
 
-   ldx #4
+   jmp @play_again
+@win:
+
+@play_again:
+
+   rts
+
+play_round:
+   ; position cursor in first guess letter
+   lda guess_index
+   asl
+   clc
+   adc #4
+   tax
    ldy #2
    clc
    jsr PLOT
-
-   lda #$41
+   ldx #0
+@letter_loop:
+   ; print cursor
+   lda #$F9
    jsr CHROUT
-
-
+   ; move cursor back
+   lda #$9D
+   jsr CHROUT
+   txa
+   pha
+@wait_input:
+   jsr GETIN
+   cmp #$14
+   beq @backspace
+   cmp #$41
+   bmi @wait_input   ; ignore < A
+   cmp #$5B
+   bpl @wait_input   ; ignore > Z
+   tay
+   jsr CHROUT
+   pla
+   tax
+   tya
+   sta guess,x
+   inx
+   cpx #5
+   beq @check
+   ; move cursor forward
+   lda #$1D
+   jsr CHROUT
+   jmp @letter_loop
+@backspace:
+   pla
+   tax
+   beq @letter_loop
+   ; print space
+   lda #$20
+   jsr CHROUT
+   ; move cursor back three positions
+   lda #$9D
+   jsr CHROUT
+   jsr CHROUT
+   jsr CHROUT
+   dex
+   jmp @letter_loop
+@check:
+   ; first check to see if in word list
+   lda guess
+   sec
+   sbc #$41       ; get first letter index (i) (e.g. A = 0)
+   ldy #0
+   sty ZP_PTR+1
+   ; multiply index by 26 (16 + 8 + 2)
+   asl
+   tax            ; X = i * 2
+   asl
+   asl
+   sta ZP_PTR     ; ZP_PTR = i * 8
+   txa
+   adc ZP_PTR
+   tax            ; X = i * 10
+   asl ZP_PTR
+   rol ZP_PTR+1   ; ZP_PTR = i * 16
+   txa
+   adc ZP_PTR
+   sta ZP_PTR
+   lda #0
+   adc ZP_PTR+1
+   sta ZP_PTR+1   ; ZP_PTR = i * 26
+   lda guess+1
+   sec
+   sbc #$41       ; get second letter index (j)
+   clc
+   adc ZP_PTR
+   sta ZP_PTR
+   lda #0
+   adc ZP_PTR+1
+   sta ZP_PTR+1   ; ZP_PTR = i *26 + j
+   lda #<WORD_TABLE
+   adc ZP_PTR
+   sta ZP_PTR
+   lda #>WORD_TABLE
+   adc ZP_PTR+1
+   sta ZP_PTR+1   ; ZP_PTR = address of first ij--- word
+   bne @start_search
+   lda ZP_PTR
+   beq @not_found
+@start_search:
+   ldy #0
+   lda (ZP_PTR),y
+   cmp guess
+   bne @not_found
+   iny
+   lda (ZP_PTR),y
+   cmp guess+1
+   bne @not_found
+@next_letter:
+   iny
+   cpy #5
+   beq @found
+   lda (ZP_PTR),y
+   cmp guess,y
+   bne @next_word
+   beq @next_letter
+@next_word:
+   lda ZP_PTR
+   clc
+   adc #5
+   sta ZP_PTR
+   lda ZP_PTR+1
+   adc #0
+   sta ZP_PTR+1
+   jmp @start_search
+@not_found:
+   ldx #16
+   ldy #1
+   clc
+   jsr PLOT
+   ldx #0
+@nf_loop:
+   lda not_word,x
+   beq @reset_cursor
+   jsr CHROUT
+   inx
+   jmp @nf_loop
+@reset_cursor:
+   lda #$9D
+.repeat 9      ; move cursor back 9 positions
+   jsr CHROUT
+.endrepeat
+   jmp play_round
+@found:
+   ldx #0
+   ldy #0
+@compare_loop:
+   jsr compare_letter
+   iny
+   cpy #5
+   bne @compare_loop
+   stx correct
+   cpx #5
+   bne @return
+   ldx #0
+@try_again_loop:
+   lda try_again,x
+   beq @return
+   jsr CHROUT
+   inx
+   jmp @try_again_loop
+@return:
    rts
+
+compare_letter:   ; X = correct letters so far, Y = letter index

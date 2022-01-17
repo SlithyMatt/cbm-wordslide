@@ -48,6 +48,8 @@ WORD_TABLE = $6000
 
 LUT_SIZE = 26*26*2
 
+WORD_ZERO = WORD_TABLE + LUT_SIZE
+
 word_table_size:
 .res 2
 
@@ -56,6 +58,17 @@ remainder:
 
 random_seed:
 .res 2
+
+scratch:
+.res 2
+
+.if .def(__CX16__)
+ZP_PTR = $30
+.elseif .def(__C64__)
+ZP_PTR = $FB
+.elseif .def(__VIC20__)
+ZP_PTR = $8B
+.endif
 
 start:
    ldx #0
@@ -102,6 +115,17 @@ start:
 .elseif .def(__VIC20__)
    ; TBD
 .endif
+   jsr RDTIM
+   pha
+   eor random_seed
+   stx random_seed
+   eor random_seed
+   sta random_seed
+   pla
+   eor random_seed+1
+   sty random_seed+1
+   eor random_seed+1
+   sta random_seed+1
    ; load word table from disk
    lda #1
    ldx #8
@@ -136,9 +160,11 @@ start:
    asl word_table_size
    rol word_table_size+1
    rol remainder
+   lda remainder
    sec
    sbc #5
    bcc @next_bit
+   sta remainder
    inc word_table_size
 @next_bit:
    dex
@@ -152,11 +178,11 @@ start:
    bne @init_loop       ; keep looping until X = 0
 @init_page2:
    lda screen_text+$100,x
-   beq @init_loop_done  ; break out of loop at null terminator
+   beq @select_word     ; break out of loop at null terminator
    jsr CHROUT
    inx
    jmp @init_page2
-@init_loop_done:
+@select_word:
    ; randomly select a word
 .if .def (__CX16__)
    jsr $FECF ; entropy_get
@@ -167,16 +193,61 @@ start:
    sta random_seed
    pla
    eor random_seed+1
+   sty random_seed+1
+   eor random_seed+1
    sta random_seed+1
-   tya
 .elseif .def(__C64__)
    ; use SID
-   lda #D41B
-   
+   lda $D41B
+   pha
+   eor random_seed
+   sta random_seed
+   pla
+   eor random_seed+1
+   sta random_seed+1
 .elseif .def(__VIC20__)
    ; TBD
 .endif
+   lda random_seed+1
+   and #$3F                ; clear top 2 bits to help keep in range
+   sta ZP_PTR+1
+   cmp word_table_size+1
+   bpl @select_word        ; too high, regenerate
+   bne @word_found
+   lda random_seed
+   cmp word_table_size
+   bpl @select_word        ; too high, regenerate
+@word_found:
+   lda random_seed
+   sta ZP_PTR              ; ZP_PTR = word index
+   asl
+   sta scratch
+   lda ZP_PTR+1
+   rol
+   sta scratch+1
+   asl scratch
+   rol scratch+1           ; scratch = word index * 4
+   lda scratch
+   clc
+   adc ZP_PTR
+   sta ZP_PTR
+   lda scratch+1
+   adc ZP_PTR+1
+   sta ZP_PTR+1            ; ZP_PTR = word index * 5
+   lda ZP_PTR
+   adc #<WORD_ZERO
+   sta ZP_PTR
+   lda ZP_PTR+1
+   adc #>WORD_ZERO
+   sta ZP_PTR+1            ; ZP_PTR = word address
 
+   ldx #4
+   ldy #2
+   clc
+   jsr PLOT
+
+   lda #$41
+   jsr CHROUT
 
 
    rts

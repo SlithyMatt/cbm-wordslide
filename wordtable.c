@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <ctype.h>
 
 #define DEFAULT_LOAD_ADDR 0x6000
 #define OUTPUT_FN "WORDS.BIN"
@@ -62,7 +63,8 @@ int main(int argc, char **argv) {
    while (!feof(fpin)) {
       if (fgets(word_str,8,fpin) == (char*)word_str) {
          for (i = 0; i < 5; i++) {
-            letter = (int) (word_str[i] - 'a');
+            word_str[i] = toupper(word_str[i]);
+            letter = (int) (word_str[i] - 'A');
             if ((letter < 0) || (letter > 25)) {
                printf("Invalid word: %s\n",word_str);
                fclose(fpin);

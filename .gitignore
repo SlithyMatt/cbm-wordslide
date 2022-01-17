@@ -54,5 +54,6 @@ dkms.conf
 *.list
 *.PRG
 *.BIN
+*.bin
 wsc64
 wsvic20

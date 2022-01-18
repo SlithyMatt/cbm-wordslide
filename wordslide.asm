@@ -26,7 +26,8 @@ screen_text:
 .byte " ",$AB,$C3,$DB,$C3,$DB,$C3,$DB,$C3,$DB,$C3,$B3,$0D
 .byte " ",$C2," ",$C2," ",$C2," ",$C2," ",$C2," ",$C2,$0D
 .byte " ",$AD,$C3,$B1,$C3,$B1,$C3,$B1,$C3,$B1,$C3,$BD,$0D,$0D
-.byte " guess the word ",$0D,$0D
+.byte " guess the word ",$0D
+.byte "                "$0D
 .byte " ",$B0,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$AE,$0D
 .byte " ",$C2,"qwertyuiop",$C2,$0D
 .byte " ",$C2,"asdfghjkl ",$C2,$0D
@@ -69,11 +70,20 @@ random_seed:
 guess:
 .res 5
 
+guess_colors:
+.res 5
+
 not_word:
 .byte "not a word    ",0
 
 try_again:
 .byte "try again     ",0
+
+you_win:
+.byte "you win!      ",$0D," play again? y/n",0
+
+you_lose:
+.byte "the word was ",$0D," play again? y/n",0
 
 .if .def(__CX16__)
 ZP_PTR = $30
@@ -182,6 +192,7 @@ start:
 @next_bit:
    dex
    bne @div5_loop
+@start_game:
    ; display initial screen text
    ldx #0
 @init_loop:
@@ -280,15 +291,60 @@ start:
    cmp #6
    bne @game_loop
    ; lost the game
-
+   ldx #<you_lose
+   ldy #>you_lose
+   jsr print_message
+   ldx #17
+   ldy #14
+   clc
+   jsr PLOT
+   ldx #0
+@reveal_loop:
+   lda answer,x
+   jsr CHROUT
+   inx
+   cpx #5
+   bne @reveal_loop
    jmp @play_again
 @win:
-
+   ldx #<you_win
+   ldy #>you_win
+   jsr print_message
 @play_again:
+   jsr GETIN
+   cmp #$4E ; N
+   beq @return
+   cmp #$59 ; Y
+   bne @play_again
+   jmp @start_game
+@return:
+   rts
 
+print_message: ; X/Y - address of null-terminated string
+   stx ZP_PTR
+   sty ZP_PTR+1
+   ldx #17
+   ldy #1
+   clc
+   jsr PLOT
+   ldy #0
+@loop:
+   lda (ZP_PTR),y
+   beq @return
+   jsr CHROUT
+   iny
+   jmp @loop
+@return:
    rts
 
 play_round:
+   ldx #0
+   txa
+@clear_color_loop:
+   sta guess_colors,x
+   inx
+   cpx #5
+   bne @clear_color_loop
    ; position cursor in first guess letter
    lda guess_index
    asl
@@ -431,17 +487,9 @@ play_round:
    sta ZP_PTR+1
    jmp @compare_word
 @not_found:
-   ldx #17
-   ldy #1
-   clc
-   jsr PLOT
-   ldx #0
-@nf_loop:
-   lda not_word,x
-   beq @reset_cursor
-   jsr CHROUT
-   inx
-   jmp @nf_loop
+   ldx #<not_word
+   ldy #>not_word
+   jsr print_message
 @reset_cursor:
    lda guess_index
    asl
@@ -472,15 +520,13 @@ play_round:
    iny
    cpy #5
    bne @compare_loop
-   cpx #5
+   lda correct
+   cmp #5
    bne @return
-   ldx #0
-@try_again_loop:
-   lda try_again,x
-   beq @return
-   jsr CHROUT
-   inx
-   jmp @try_again_loop
+   ldx #<try_again
+   ldy #>try_again
+   jsr print_message
+   jsr correct_yellows
 @return:
    rts
 
@@ -491,7 +537,6 @@ compare_letter:   ; Y = letter index
    ; check rest of answer for this letter
    ldx #0
 @check_loop:
-   lda guess,x
    cmp answer,x
    beq @yellow
    inx
@@ -532,6 +577,7 @@ compare_letter:   ; Y = letter index
 
 reverse_letter:   ; A = color, Y = letter index
    tax         ; X = color
+   stx guess_colors,y
 .if .def(__CX16__)
    stz $9F25   ; data port 0
    tya
@@ -591,4 +637,19 @@ reverse_letter:   ; A = color, Y = letter index
    pla
    tay
    txa
+   rts
+
+correct_yellows:
+   ldx #0
+@yellow_loop:
+   lda guess_colors,x
+   cmp #7
+   beq @check_yellow
+   inx
+   cpx #5
+   bne @yellow_loop
+   jmp @return
+@check_yellow:
+
+@return:
    rts

@@ -264,6 +264,12 @@ start:
    ; initialize round
    lda #0
    sta guess_index
+   tax
+@init_letter_loop:
+   sta letter_status,x
+   inx
+   cpx #26
+   bne @init_letter_loop
 @game_loop:
    jsr play_round
    lda correct
@@ -344,42 +350,59 @@ play_round:
    sbc #$41       ; get first letter index (i) (e.g. A = 0)
    ldy #0
    sty ZP_PTR+1
-   ; multiply index by 26 (16 + 8 + 2)
-   asl
-   tax            ; X = i * 2
+   ; multiply index by 52 (32 + 16 + 4)
    asl
    asl
-   sta ZP_PTR     ; ZP_PTR = i * 8
-   txa
-   adc ZP_PTR
-   tax            ; X = i * 10
-   asl ZP_PTR
+   tax            ; X = i * 4
+   asl
+   asl
+   sta ZP_PTR
    rol ZP_PTR+1   ; ZP_PTR = i * 16
    txa
    adc ZP_PTR
+   sta scratch
+   lda ZP_PTR+1
+   adc #0
+   sta scratch+1  ; scratch = i * 20
+   asl ZP_PTR
+   rol ZP_PTR+1   ; ZP_PTR = i * 32
+   lda scratch
+   adc ZP_PTR
    sta ZP_PTR
-   lda #0
+   lda scratch+1
    adc ZP_PTR+1
-   sta ZP_PTR+1   ; ZP_PTR = i * 26
+   sta ZP_PTR+1   ; ZP_PTR = i * 52
    lda guess+1
    sec
    sbc #$41       ; get second letter index (j)
-   clc
+   asl
    adc ZP_PTR
    sta ZP_PTR
    lda #0
    adc ZP_PTR+1
-   sta ZP_PTR+1   ; ZP_PTR = i *26 + j
+   sta ZP_PTR+1   ; ZP_PTR = i*52 + j*2
    lda #<WORD_TABLE
    adc ZP_PTR
    sta ZP_PTR
    lda #>WORD_TABLE
    adc ZP_PTR+1
    sta ZP_PTR+1   ; ZP_PTR = address of first ij--- word
+   ldy #0
+   lda (ZP_PTR),y
    bne @start_search
-   lda ZP_PTR
+   iny
+   lda (ZP_PTR),y
    beq @not_found
 @start_search:
+   ldy #0
+   lda (ZP_PTR),y
+   sta scratch
+   iny
+   lda (ZP_PTR),y
+   sta ZP_PTR+1
+   lda scratch
+   sta ZP_PTR
+@compare_word:
    ldy #0
    lda (ZP_PTR),y
    cmp guess
@@ -391,7 +414,9 @@ play_round:
 @next_letter:
    iny
    cpy #5
-   beq @found
+   bne @compare_letter
+   jmp @found
+@compare_letter:
    lda (ZP_PTR),y
    cmp guess,y
    bne @next_word
@@ -404,9 +429,9 @@ play_round:
    lda ZP_PTR+1
    adc #0
    sta ZP_PTR+1
-   jmp @start_search
+   jmp @compare_word
 @not_found:
-   ldx #16
+   ldx #17
    ldy #1
    clc
    jsr PLOT
@@ -418,20 +443,35 @@ play_round:
    inx
    jmp @nf_loop
 @reset_cursor:
+   lda guess_index
+   asl
+   clc
+   adc #4
+   tax
+   ldy #4
+   clc
+   jsr PLOT
+.repeat 3
+   lda #$20
+   jsr CHROUT
+   lda #$1D
+   jsr CHROUT
+.endrepeat
+   lda #$20
+   jsr CHROUT
    lda #$9D
 .repeat 9      ; move cursor back 9 positions
    jsr CHROUT
 .endrepeat
    jmp play_round
 @found:
-   ldx #0
    ldy #0
+   sty correct
 @compare_loop:
    jsr compare_letter
    iny
    cpy #5
    bne @compare_loop
-   stx correct
    cpx #5
    bne @return
    ldx #0
@@ -444,4 +484,111 @@ play_round:
 @return:
    rts
 
-compare_letter:   ; X = correct letters so far, Y = letter index
+compare_letter:   ; Y = letter index
+   lda guess,y
+   cmp answer,y
+   beq @green
+   ; check rest of answer for this letter
+   ldx #0
+@check_loop:
+   lda guess,x
+   cmp answer,x
+   beq @yellow
+   inx
+   cpx #5
+   bne @check_loop
+   ; letter not found
+   lda guess,y
+   sec
+   sbc #$41
+   tax
+   lda #$04
+   sta letter_status,x
+   jmp @return
+@green:
+   ; letter in correct position
+   inc correct
+   sec
+   sbc #$41
+   tax
+   lda #$02
+   sta letter_status,x
+   lda #5
+   jsr reverse_letter
+   jmp @return
+@yellow:
+   ; letter found, but wrong position
+   lda guess,y
+   sec
+   sbc #$41
+   tax
+   lda letter_status,x
+   ora #$01
+   sta letter_status,x
+   lda #7
+   jsr reverse_letter
+@return:
+   rts
+
+reverse_letter:   ; A = color, Y = letter index
+   tax         ; X = color
+.if .def(__CX16__)
+   stz $9F25   ; data port 0
+   tya
+   asl
+   adc #2
+   sta $9F20   ; low byte VRAM address = X coordinate (letter index*2 + 2)
+   lda guess_index
+   asl
+   adc #4
+   sta $9F21   ; high byte VRAM address = Y coordinate (guess index*2 + 4)
+   stz $9F22   ; bank = 0, stride = 0
+   lda $9F23   ; get screen code
+   ora #$80    ; reverse it
+   sta $9F23
+   inc $9F20   ; go to color
+   stx $9F23   ; set foreground
+.elseif .def(__C64__)
+   lda #0
+   sta ZP_PTR+1
+   lda guess_index
+   asl
+   adc #4         ; A = row
+   asl
+   asl
+   asl
+   sta scratch    ; row * 8
+   asl
+   asl
+   sta ZP_PTR
+   rol ZP_PTR+1  ; ZP_PTR = row * 32
+   adc scratch
+   sta ZP_PTR
+   lda ZP_PTR+1
+   adc #$04
+   sta ZP_PTR+1   ; ZP_PTR = start of row in screen RAM
+   tya
+   asl
+   adc #2
+   adc ZP_PTR
+   sta ZP_PTR
+   lda ZP_PTR+1
+   adc #0
+   sta ZP_PTR+1   ; ZP_PTR = letter position in screen RAM
+   stx scratch    ; scratch = color
+   ldx #0
+   lda (ZP_PTR,x) ; get screen code
+   ora #$80       ; reverse it
+   sta (ZP_PTR,x) ; update code
+   lda ZP_PTR+1
+   adc #$D4
+   sta ZP_PTR+1   ; ZP_PTR = letter position in color RAM
+   lda scratch
+   sta (ZP_PTR,x) ; set color
+.elseif .def(__VIC20__)
+   ; TBD
+.endif
+   pla
+   tay
+   txa
+   rts

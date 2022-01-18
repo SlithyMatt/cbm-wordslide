@@ -89,14 +89,11 @@ alien
 align
 alike
 alive
-alkyd
-alkyl
 allay
 alley
 allot
 allow
 alloy
-allyl
 aloes
 aloft
 aloha
@@ -112,12 +109,9 @@ alums
 amass
 amaze
 amber
-ambit
 amble
 ambos
 amend
-amide
-amine
 amino
 amiss
 amity
@@ -2053,6 +2047,7 @@ reply
 reset
 resin
 retro
+revel
 rider
 rides
 ridge
@@ -2231,6 +2226,7 @@ stain
 stake
 stamp
 stand
+stare
 stark
 stars
 start

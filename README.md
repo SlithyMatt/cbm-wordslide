@@ -3,6 +3,7 @@ Guess a 5-letter word, for CBM-based machines (Commodore 64, Commander X16, etc.
 
 ## Gameplay
 ![Commodore 64 VICE emulation screen capture](c64-tends.png)
+
 You get six chances to guess the secret word. It is one of about 2500 commonly-used
 English words with exactly 5 letters. Just type the word and hit RETURN/ENTER to
 see if you guessed it correctly. If you had any letters in the correct position,

@@ -408,10 +408,27 @@ play_round:
    sta guess,x
    inx
    cpx #5
-   beq @check
+   beq @wait_enter
    ; move cursor forward
    lda #$1D
    jsr CHROUT
+   jmp @letter_loop
+@wait_enter:
+   txa
+   pha
+   jsr GETIN
+   tay
+   pla
+   tax
+   tya
+   cmp #$0D
+   beq @check
+   cmp #$14
+   bne @wait_enter
+   ; backspace, so place cursor back in last box
+   lda #$9D
+   jsr CHROUT
+   dex
    jmp @letter_loop
 @backspace:
    pla

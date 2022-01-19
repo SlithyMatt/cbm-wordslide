@@ -1601,6 +1601,7 @@ gases
 gates
 gauge
 gears
+geeks
 genes
 genre
 ghost
@@ -1751,6 +1752,7 @@ laugh
 layer
 leads
 leaks
+leans
 learn
 lease
 least
@@ -2040,6 +2042,7 @@ react
 reads
 ready
 realm
+reams
 rebel
 refer
 reign

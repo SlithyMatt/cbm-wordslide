@@ -2262,6 +2262,7 @@ steer
 stems
 steps
 stick
+stink
 stiff
 still
 stock

@@ -2233,6 +2233,7 @@ spite
 split
 spoke
 spoon
+spore
 sport
 spots
 spray
@@ -2379,6 +2380,7 @@ trash
 treat
 trees
 trend
+triad
 trial
 tribe
 trick

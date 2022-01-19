@@ -1,7 +1,6 @@
 aback
 abase
 abate
-abaya
 abbey
 abbot
 abets
@@ -1221,7 +1220,6 @@ drape
 drawl
 drawn
 draws
-drays
 dread
 dream
 dreck
@@ -1570,6 +1568,7 @@ floor
 flour
 flown
 flows
+flues
 fluid
 flyer
 focal
@@ -1712,6 +1711,7 @@ indie
 inner
 input
 intro
+isles
 issue
 items
 jeans
@@ -1847,6 +1847,7 @@ model
 modem
 modes
 moist
+moles
 money
 month
 moody
@@ -1985,6 +1986,7 @@ posts
 pouch
 pound
 power
+prays
 press
 price
 pride

@@ -40,6 +40,34 @@ answer:
 letter_status:
 .res 26
 
+letter_coords:
+.byte 21,2  ; A
+.byte 22,7  ; B
+.byte 22,5  ; C
+.byte 21,4  ; D
+.byte 20,4  ; E
+.byte 21,5  ; F
+.byte 21,6  ; G
+.byte 21,7  ; H
+.byte 20,9  ; I
+.byte 21,8  ; J
+.byte 21,9  ; K
+.byte 21,10 ; L
+.byte 22,9  ; M
+.byte 22,8  ; N
+.byte 20,10 ; O
+.byte 20,11 ; P
+.byte 20,2  ; Q
+.byte 20,5  ; R
+.byte 21,3  ; S
+.byte 20,6  ; T
+.byte 20,8  ; U
+.byte 22,6  ; V
+.byte 20,3  ; W
+.byte 22,4  ; X
+.byte 20,7  ; Y
+.byte 22,3  ; Z
+
 filename:
 .byte "words.bin"
 end_filename:
@@ -522,12 +550,59 @@ play_round:
    bne @compare_loop
    lda correct
    cmp #5
-   beq @return
+   beq @update_keyboard
    ldx #<try_again
    ldy #>try_again
    jsr print_message
    jsr correct_yellows
-@return:
+@update_keyboard:
+   ldx #0
+@keyboard_loop:
+   lda letter_status,x
+   beq @next_key
+   jsr update_key
+@next_key:
+   inx
+   cpx #26
+   bne @keyboard_loop
+   ; return to white text
+   lda #$05
+   jsr CHROUT
+   rts
+
+update_key: ; X = key index
+   stx scratch
+   txa
+   asl
+   tax
+   lda letter_coords,x
+   inx
+   ldy letter_coords,x
+   tax
+   jsr PLOT
+   ldx scratch
+   lda letter_status,x
+   and #$04
+   bne @clear
+   lda letter_status,x
+   and #$02
+   bne @green
+   ; make letter yellow
+   lda #$9E
+   jsr CHROUT
+   jmp @print_letter
+@green:
+   lda #$1E
+   jsr CHROUT
+@print_letter:
+   txa
+   clc
+   adc #$41
+   jmp @print
+@clear:
+   lda #$20
+@print:
+   jsr CHROUT
    rts
 
 compare_letter:   ; Y = letter index

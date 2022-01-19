@@ -27,7 +27,7 @@ screen_text:
 .byte " ",$C2," ",$C2," ",$C2," ",$C2," ",$C2," ",$C2,$0D
 .byte " ",$AD,$C3,$B1,$C3,$B1,$C3,$B1,$C3,$B1,$C3,$BD,$0D,$0D
 .byte " guess the word ",$0D
-.byte "                "$0D
+.byte "                ",$0D
 .byte " ",$B0,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$AE,$0D
 .byte " ",$C2,"qwertyuiop",$C2,$0D
 .byte " ",$C2,"asdfghjkl ",$C2,$0D
@@ -55,7 +55,7 @@ word_table_size:
 .res 2
 
 scratch:
-.res 2
+.res 3
 
 remainder:
 guess_index:
@@ -522,7 +522,7 @@ play_round:
    bne @compare_loop
    lda correct
    cmp #5
-   bne @return
+   beq @return
    ldx #<try_again
    ldy #>try_again
    jsr print_message
@@ -577,12 +577,13 @@ compare_letter:   ; Y = letter index
 
 reverse_letter:   ; A = color, Y = letter index
    tax         ; X = color
-   stx guess_colors,y
+   sta guess_colors,y
 .if .def(__CX16__)
    stz $9F25   ; data port 0
    tya
    asl
-   adc #2
+   asl
+   adc #4
    sta $9F20   ; low byte VRAM address = X coordinate (letter index*2 + 2)
    lda guess_index
    asl
@@ -634,9 +635,7 @@ reverse_letter:   ; A = color, Y = letter index
 .elseif .def(__VIC20__)
    ; TBD
 .endif
-   pla
-   tay
-   txa
+   lda guess_colors,y
    rts
 
 correct_yellows:
@@ -645,11 +644,62 @@ correct_yellows:
    lda guess_colors,x
    cmp #7
    beq @check_yellow
+@next_yellow:
    inx
    cpx #5
    bne @yellow_loop
    jmp @return
 @check_yellow:
-
+   ldy #0
+   sty scratch    ; answer count of letter
+   sty scratch+1  ; green count of letter
+   sty scratch+2  ; yellow count of letter
+@count_loop:
+   lda answer,y
+   cmp guess,x
+   bne @check_yellow_guess
+   inc scratch          ; Y = index where letter is found
+   lda guess_colors,y
+   cmp #5
+   bne @check_yellow_guess
+   inc scratch+1        ; correct letter guessed for this index
+   jmp @next_count
+@check_yellow_guess:
+   lda guess_colors,y
+   cmp #7
+   bne @next_count
+   lda guess,x
+   cmp guess,y
+   bne @next_count
+   inc scratch+2        ; matching letter marked yellow
+@next_count:
+   iny
+   cpy #5
+   bne @count_loop
+   lda scratch
+   sec
+   sbc scratch+1        ; A = number of unguessed/misplaced letters
+   beq @clear_yellow
+   cmp scratch+2
+   bmi @clear_yellow
+   jmp @next_yellow
+@clear_yellow:
+   lda #0
+   sta guess_colors,x
+   txa
+   pha
+   asl
+   adc #2
+   tay
+   lda guess_index
+   asl
+   adc #4
+   tax
+   jsr PLOT
+   pla
+   tax
+   lda guess,x
+   jsr CHROUT
+   jmp @next_yellow
 @return:
    rts

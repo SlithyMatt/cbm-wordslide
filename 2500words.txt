@@ -360,14 +360,12 @@ betel
 betta
 bevel
 bezel
-bhaji
 bible
 bicep
 biddy
 bided
 bides
 bidet
-bight
 bigot
 bijou
 biked
@@ -389,7 +387,6 @@ birch
 birds
 birth
 bison
-bitch
 biter
 bites
 bitsy
@@ -1368,7 +1365,6 @@ ensue
 enter
 entry
 envoy
-eosin
 epics
 epoch
 epoxy
@@ -1621,6 +1617,7 @@ glory
 gloss
 glove
 glued
+gnome
 goals
 goats
 going
@@ -1689,6 +1686,7 @@ homes
 honey
 honor
 hooks
+hoops
 hoped
 hopes
 horns
@@ -1777,6 +1775,7 @@ lived
 liver
 lives
 loads
+loafs
 loans
 lobby
 local
@@ -1850,6 +1849,7 @@ modes
 moist
 money
 month
+moody
 moral
 motor
 mount
@@ -1916,6 +1916,7 @@ owner
 oxide
 packs
 pages
+pails
 pains
 paint
 pairs
@@ -1973,6 +1974,7 @@ poker
 polar
 poles
 polls
+ponds
 pools
 porch
 pores
@@ -2071,6 +2073,7 @@ roles
 rolls
 roman
 rooms
+roost
 roots
 ropes
 roses
@@ -2157,7 +2160,9 @@ sight
 sigma
 signs
 silly
+silos
 since
+sinus
 sites
 sixth
 sized
@@ -2167,6 +2172,7 @@ skill
 skins
 skirt
 skull
+slams
 slate
 slave
 sleek
@@ -2174,8 +2180,10 @@ sleep
 slept
 slice
 slide
+sloop
 slope
 slots
+slows
 small
 smart
 smell
@@ -2195,6 +2203,7 @@ sorry
 sorts
 souls
 sound
+soups
 south
 space
 spare
@@ -2265,6 +2274,7 @@ sucks
 sugar
 suite
 suits
+sully
 sunny
 super
 surge
@@ -2283,6 +2293,7 @@ taken
 takes
 tales
 talks
+tangy
 tanks
 tapes
 tasks
@@ -2331,7 +2342,9 @@ toast
 today
 token
 tones
+tonicu
 tools
+toons
 tooth
 topic
 torch
@@ -2430,6 +2443,7 @@ votes
 wages
 wagon
 waist
+waits
 walks
 walls
 wants
@@ -2459,6 +2473,7 @@ wider
 widow
 width
 winds
+windy
 wines
 wings
 wiped
@@ -2469,6 +2484,7 @@ wives
 woman
 women
 woods
+woody
 words
 works
 world

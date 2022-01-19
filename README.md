@@ -121,6 +121,8 @@ to load, including a **LOADING...** message after you enter **RUN** while the
 executable loads **WORDS.BIN**. This is the timing you would expect on the X16
 hardware with a physical SD card.
 
+You can also try it on the official web emulator: https://www.commanderx16.com/emulator/x16emu.html?manifest=/emulator/226-word-slide-/
+
 ## Support
 If you see any apparent bugs, or words that should or shouldn't be included in the
 list, please enter an issue on GitHub, or a pull request with your own fix --

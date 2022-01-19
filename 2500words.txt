@@ -1861,6 +1861,7 @@ mouth
 moved
 moves
 movie
+mower
 music
 myths
 nails
@@ -2049,6 +2050,7 @@ reign
 relax
 relay
 renal
+reneg
 renew
 reply
 reset
@@ -2085,6 +2087,7 @@ roses
 rough
 round
 route
+rower
 royal
 rugby
 ruins

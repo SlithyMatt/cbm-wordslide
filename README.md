@@ -122,7 +122,7 @@ executable loads **WORDS.BIN**. This is the timing you would expect on the X16
 hardware with a physical SD card.
 
 ## Support
-If you see any apparent bugs, or words that should or shoudn't be included in the
+If you see any apparent bugs, or words that should or shouldn't be included in the
 list, please enter an issue on GitHub, or a pull request with your own fix --
 adding or removing words from the list (**2500words.txt**) is trivial,
 and an easy way to contribute to this project!

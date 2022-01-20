@@ -1718,6 +1718,7 @@ lacks
 lakes
 lamer
 lamps
+lance
 lands
 lanes
 large
@@ -1735,8 +1736,10 @@ least
 leave
 legal
 lemon
+levee
 level
 lever
+licks
 light
 liked
 likes
@@ -1776,6 +1779,7 @@ lucky
 lunar
 lunch
 lungs
+lusty
 lying
 macro
 magic
@@ -1850,6 +1854,7 @@ names
 nasal
 nasty
 naval
+navel
 needs
 nerve
 never
@@ -2161,6 +2166,7 @@ skins
 skirt
 skull
 slams
+slant
 slate
 slave
 sleek
@@ -2175,6 +2181,7 @@ slows
 small
 smart
 smell
+smelt
 smile
 smoke
 snack
@@ -2206,6 +2213,8 @@ spent
 sperm
 spice
 spicy
+spied
+spies
 spike
 spill
 spine
@@ -2335,6 +2344,7 @@ toast
 today
 token
 tones
+tongs
 tonic
 tools
 toons

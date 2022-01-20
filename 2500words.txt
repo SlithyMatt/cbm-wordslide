@@ -1533,6 +1533,7 @@ flier
 flies
 fling
 float
+flock
 flood
 floor
 flour
@@ -1543,6 +1544,7 @@ fluid
 flyer
 focal
 focus
+folds
 folks
 fonts
 foods
@@ -1638,6 +1640,7 @@ hangs
 happy
 harsh
 hated
+hater
 hates
 haven
 hawks
@@ -2029,6 +2032,7 @@ range
 ranks
 rapid
 rated
+rater
 rates
 ratio
 razed
@@ -2319,6 +2323,7 @@ taxes
 teach
 teams
 tears
+teary
 teens
 teeth
 tells
@@ -2330,6 +2335,7 @@ tenth
 tents
 tepid
 terms
+terra
 tests
 texts
 thank

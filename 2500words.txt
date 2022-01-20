@@ -248,7 +248,6 @@ baggy
 bails
 bairn
 baits
-baize
 baked
 baker
 bakes
@@ -687,18 +686,13 @@ cause
 caved
 caver
 caves
-cavil
 cease
-cecal
-cecum
 cedar
 ceded
 cedes
-ceili
 celeb
 cello
 cells
-celts
 cents
 chads
 chafe
@@ -707,7 +701,6 @@ chain
 chair
 chalk
 champ
-chana
 chant
 chaos
 chaps
@@ -889,7 +882,6 @@ coops
 coopt
 coped
 copes
-copra
 copse
 coral
 cords
@@ -899,9 +891,7 @@ cores
 corgi
 corks
 corky
-corms
 corns
-cornu
 corny
 corps
 costs
@@ -945,7 +935,6 @@ cream
 credo
 creed
 creek
-creel
 creep
 creme
 crepe
@@ -961,7 +950,6 @@ cries
 crime
 crimp
 crisp
-crits
 croak
 crock
 crocs
@@ -978,9 +966,7 @@ crown
 crows
 crude
 cruel
-cruet
 crumb
-cruse
 crush
 crust
 crypt
@@ -1013,7 +999,6 @@ cushy
 cusps
 cuter
 cutie
-cutis
 cutup
 cycad
 cycle
@@ -1021,9 +1006,7 @@ cyclo
 cynic
 cysts
 czars
-dacha
 daddy
-dados
 daffy
 daily
 dairy
@@ -1039,14 +1022,12 @@ dares
 darks
 darns
 darts
-dashi
 dated
 dater
 dates
 datum
 daubs
 daunt
-davit
 dawns
 dazed
 deals
@@ -1069,16 +1050,14 @@ decry
 deeds
 deems
 deeps
-deers
 defer
+defog
 deify
 deign
 deism
 deist
 deity
-dekes
 delay
-delft
 delis
 dells
 delta
@@ -1098,15 +1077,12 @@ detox
 deuce
 devil
 dewar
-dhikr
-dhows
 dials
 diary
 diced
 dices
 dicey
 dicky
-dicta
 diets
 digit
 diked
@@ -1116,7 +1092,6 @@ dilly
 dimer
 dimes
 dimly
-dinar
 dined
 diner
 dines
@@ -1609,6 +1584,7 @@ given
 gives
 gland
 glass
+glide
 globe
 glory
 gloss
@@ -1803,6 +1779,7 @@ lungs
 lying
 macro
 magic
+maize
 major
 maker
 makes
@@ -2103,6 +2080,7 @@ salad
 sales
 salon
 sandy
+sassy
 satin
 sauce
 saved
@@ -2200,6 +2178,7 @@ smell
 smile
 smoke
 snack
+snafu
 snake
 sneak
 socks
@@ -2530,4 +2509,6 @@ young
 yours
 youth
 yummy
+zilch
+zoned
 zones

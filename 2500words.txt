@@ -607,7 +607,6 @@ buxom
 buyer
 buzzy
 bylaw
-byres
 bytes
 byway
 cabal
@@ -1554,6 +1553,7 @@ forty
 forum
 found
 frame
+frank
 fraud
 fresh
 fried
@@ -1580,6 +1580,7 @@ ghost
 giant
 gifts
 girls
+gists
 given
 gives
 gland
@@ -1616,6 +1617,7 @@ grief
 grill
 grind
 grips
+groin
 gross
 group
 grove
@@ -1734,6 +1736,8 @@ learn
 lease
 least
 leave
+ledge
+lefty
 legal
 lemon
 levee
@@ -1793,6 +1797,7 @@ march
 marks
 marry
 masks
+masts
 match
 mates
 maths
@@ -1821,10 +1826,13 @@ midst
 might
 miles
 minds
+miner
 mines
 minor
 minus
 mired
+mists
+misty
 mixed
 mixer
 mixes
@@ -1930,6 +1938,7 @@ peers
 penis
 penny
 perks
+pesto
 pests
 petty
 phase
@@ -1973,6 +1982,7 @@ posts
 pouch
 pound
 power
+prank
 prays
 press
 price
@@ -2021,6 +2031,7 @@ rapid
 rated
 rates
 ratio
+razed
 razor
 reach
 react
@@ -2056,6 +2067,7 @@ risky
 rival
 river
 roads
+roast
 robot
 rocks
 rocky
@@ -2174,6 +2186,7 @@ sleep
 slept
 slice
 slide
+slime
 sloop
 slope
 slots
@@ -2188,6 +2201,7 @@ snack
 snafu
 snake
 sneak
+snore
 socks
 soils
 solar
@@ -2309,9 +2323,12 @@ teens
 teeth
 tells
 tempo
+tempt
 tends
+tenet
 tenth
 tents
+tepid
 terms
 tests
 texts
@@ -2400,6 +2417,7 @@ tweet
 twice
 twins
 twist
+typed
 types
 tyres
 ultra

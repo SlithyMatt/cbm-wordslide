@@ -443,7 +443,6 @@ boast
 boats
 bobby
 bocce
-boche
 boded
 bodes
 boffo
@@ -461,7 +460,6 @@ bombe
 bombs
 bonds
 boned
-boner
 bones
 boney
 bongo
@@ -494,7 +492,6 @@ boron
 bosom
 boson
 bossy
-bosun
 botch
 bough
 boule
@@ -507,8 +504,6 @@ bowls
 boxed
 boxer
 boxes
-boyar
-boyos
 bozos
 brace
 bract
@@ -1623,6 +1618,7 @@ gnome
 goals
 goats
 going
+goner
 goods
 grace
 grade
@@ -1744,6 +1740,7 @@ label
 labor
 lacks
 lakes
+lamer
 lamps
 lands
 lanes
@@ -1788,6 +1785,7 @@ locks
 lodge
 logic
 logos
+loner
 looks
 loops
 loose
@@ -2391,7 +2389,10 @@ tribe
 trick
 tried
 tries
+tripe
 trips
+trite
+trope
 trout
 truck
 truly
@@ -2444,6 +2445,7 @@ video
 views
 villa
 vinyl
+viper
 viral
 virus
 visas
@@ -2457,6 +2459,7 @@ volts
 voted
 voter
 votes
+wader
 wages
 wagon
 waist
@@ -2494,6 +2497,7 @@ windy
 wines
 wings
 wiped
+wiper
 wired
 wires
 witch

@@ -1574,6 +1574,7 @@ gamma
 gases
 gates
 gauge
+gaunt
 gears
 geeks
 genes
@@ -1619,6 +1620,7 @@ grief
 grill
 grind
 grips
+grits
 groin
 gross
 group
@@ -1639,6 +1641,7 @@ handy
 hangs
 happy
 harsh
+haste
 hated
 hater
 hates
@@ -1646,6 +1649,7 @@ haven
 hawks
 heads
 heard
+heaps
 heart
 heavy
 hedge
@@ -1729,12 +1733,15 @@ lanes
 large
 laser
 lasts
+latch
 later
+lathe
 laugh
 layer
 leads
 leaks
 leans
+leaps
 learn
 lease
 least
@@ -1771,6 +1778,7 @@ locks
 lodge
 logic
 logos
+loins
 loner
 looks
 loops
@@ -1786,6 +1794,7 @@ lucky
 lunar
 lunch
 lungs
+lurch
 lusty
 lying
 macro
@@ -1920,6 +1929,7 @@ pains
 paint
 pairs
 panel
+pangs
 panic
 pants
 paper
@@ -1932,10 +1942,12 @@ patch
 paths
 patio
 pause
+pawns
 peace
 peach
 peaks
 pearl
+pecan
 pedal
 peers
 penis
@@ -1959,6 +1971,7 @@ pitch
 pixel
 pizza
 place
+plaid
 plain
 plane
 plans
@@ -1982,6 +1995,7 @@ ports
 posed
 poses
 posts
+potty
 pouch
 pound
 power
@@ -1997,6 +2011,7 @@ prize
 probe
 promo
 prone
+prong
 proof
 props
 proud
@@ -2064,6 +2079,7 @@ right
 rigid
 rings
 rinse
+riots
 risen
 rises
 risks
@@ -2087,6 +2103,7 @@ roses
 rough
 round
 route
+rover
 rower
 royal
 rugby
@@ -2095,6 +2112,7 @@ ruled
 ruler
 rules
 rural
+rusty
 sadly
 safer
 salad
@@ -2173,6 +2191,7 @@ silos
 since
 sinus
 sites
+sixes
 sixth
 sized
 sizes
@@ -2513,6 +2532,8 @@ wiped
 wiper
 wired
 wires
+wiser
+wispy
 witch
 wives
 woman

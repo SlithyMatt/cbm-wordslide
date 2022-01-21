@@ -341,11 +341,15 @@ start:
 @play_again:
    jsr GETIN
    cmp #$4E ; N
-   beq @return
+   beq @quit
    cmp #$59 ; Y
    bne @play_again
    jmp @start_game
-@return:
+@quit:
+   ldx #24
+   ldy #0
+   clc
+   jsr PLOT
    rts
 
 print_message: ; X/Y - address of null-terminated string

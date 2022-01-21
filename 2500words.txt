@@ -1668,6 +1668,7 @@ holes
 holly
 homes
 honey
+honks
 honor
 hooks
 hoops
@@ -1709,6 +1710,7 @@ judge
 juice
 juicy
 jumps
+junks
 keeps
 kicks
 kills
@@ -1780,6 +1782,7 @@ logic
 logos
 loins
 loner
+longs
 looks
 loops
 loose
@@ -1843,6 +1846,7 @@ mines
 minor
 minus
 mired
+miser
 mists
 misty
 mixed
@@ -1854,9 +1858,11 @@ modes
 moist
 moles
 money
+monks
 month
 moody
 moral
+moths
 motor
 mount
 mouse
@@ -1890,6 +1896,7 @@ noble
 nodes
 noise
 noisy
+nooks
 norms
 north
 notch
@@ -2024,6 +2031,7 @@ pumps
 punch
 pupil
 puppy
+purge
 purse
 queen
 query
@@ -2059,6 +2067,7 @@ ready
 realm
 reams
 rebel
+reeds
 refer
 reign
 relax
@@ -2081,6 +2090,7 @@ rings
 rinse
 riots
 risen
+riser
 rises
 risks
 risky
@@ -2189,6 +2199,7 @@ signs
 silly
 silos
 since
+sings
 sinus
 sites
 sixes
@@ -2212,6 +2223,7 @@ slide
 slime
 sloop
 slope
+sloth
 slots
 slows
 small
@@ -2219,6 +2231,7 @@ smart
 smell
 smelt
 smile
+smite
 smoke
 snack
 snafu
@@ -2294,6 +2307,7 @@ stiff
 still
 stock
 stole
+stomp
 stone
 stood
 stool
@@ -2377,6 +2391,7 @@ thumb
 tiger
 tight
 tiles
+tilts
 timer
 times
 tired
@@ -2425,6 +2440,7 @@ trips
 trite
 trope
 trout
+truce
 truck
 truly
 trump

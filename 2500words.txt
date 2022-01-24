@@ -1658,6 +1658,7 @@ hello
 helps
 hence
 herbs
+herds
 highs
 hills
 hints
@@ -1840,6 +1841,7 @@ micro
 midst
 might
 miles
+mince
 minds
 miner
 mines
@@ -1986,6 +1988,7 @@ plant
 plate
 plays
 plaza
+plead
 plots
 plugs
 poems
@@ -2142,6 +2145,7 @@ scarf
 scary
 scene
 scent
+scold
 scoop
 scope
 score
@@ -2213,6 +2217,7 @@ skirt
 skull
 slams
 slant
+slaps
 slate
 slave
 sleek
@@ -2315,7 +2320,9 @@ stops
 store
 storm
 story
+stout
 stove
+stows
 strap
 straw
 strip

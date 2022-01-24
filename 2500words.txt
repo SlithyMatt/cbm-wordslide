@@ -1532,6 +1532,7 @@ fluid
 flyer
 focal
 focus
+foist
 folds
 folks
 fonts
@@ -1634,6 +1635,7 @@ hands
 handy
 hangs
 happy
+hardy
 harsh
 haste
 hated
@@ -1642,9 +1644,11 @@ hates
 haven
 hawks
 heads
+heals
 heard
 heaps
 heart
+heats
 heavy
 hedge
 heels
@@ -1659,6 +1663,7 @@ hilly
 hints
 hired
 hobby
+hoist
 holds
 holes
 holly
@@ -2270,8 +2275,10 @@ sloth
 slots
 slows
 slump
+smack
 small
 smart
+smear
 smell
 smelt
 smile
@@ -2495,6 +2502,7 @@ trait
 trans
 traps
 trash
+tread
 treat
 trees
 trend

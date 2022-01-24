@@ -780,7 +780,6 @@ claps
 clash
 clasp
 class
-clave
 claws
 clays
 clean
@@ -2101,6 +2100,7 @@ renew
 reply
 reset
 resin
+rests
 retro
 revel
 rider

@@ -17,12 +17,10 @@ ached
 aches
 acids
 acing
-ackee
 acorn
 acres
 acrid
 acted
-actin
 actor
 acute
 adage
@@ -33,8 +31,6 @@ addle
 adept
 adieu
 adios
-adits
-adman
 admin
 admit
 adobe
@@ -1532,6 +1528,7 @@ flick
 flier
 flies
 fling
+flint
 float
 flock
 flood
@@ -1981,6 +1978,7 @@ place
 plaid
 plain
 plane
+plank
 plans
 plant
 plate
@@ -2005,6 +2003,7 @@ posts
 potty
 pouch
 pound
+pours
 power
 prank
 prays

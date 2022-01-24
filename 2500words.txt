@@ -625,15 +625,10 @@ caked
 cakes
 cakey
 calfs
-calif
-calla
 calls
 calms
-calve
-calyx
 camel
 cameo
-campo
 camps
 campy
 canal
@@ -641,7 +636,6 @@ candy
 caned
 canes
 canid
-canna
 canny
 canoe
 canon
@@ -651,7 +645,6 @@ caper
 capes
 capon
 capos
-caput
 carat
 carbo
 carbs
@@ -1628,6 +1621,7 @@ group
 grove
 grown
 grows
+grunt
 guard
 guess
 guest
@@ -1662,6 +1656,7 @@ herbs
 herds
 highs
 hills
+hilly
 hints
 hired
 hobby
@@ -1708,6 +1703,7 @@ jelly
 jewel
 joins
 joint
+joked
 jokes
 judge
 juice
@@ -1720,7 +1716,9 @@ kills
 kinda
 kinds
 kings
+kneel
 knees
+knelt
 knife
 knock
 knots
@@ -1735,6 +1733,7 @@ lamps
 lance
 lands
 lanes
+lanky
 large
 laser
 lasts
@@ -1759,6 +1758,7 @@ levee
 level
 lever
 licks
+lifts
 light
 liked
 likes
@@ -1781,6 +1781,7 @@ lobby
 local
 locks
 lodge
+lofts
 logic
 logos
 loins
@@ -1865,6 +1866,7 @@ model
 modem
 modes
 moist
+moldy
 moles
 money
 monks
@@ -1883,6 +1885,7 @@ moves
 movie
 mower
 music
+muted
 myths
 nails
 naked
@@ -1922,6 +1925,7 @@ ocean
 offer
 often
 ogres
+olden
 older
 olive
 omega
@@ -2008,6 +2012,7 @@ plots
 plugs
 poems
 point
+poked
 poker
 pokey
 polar
@@ -2151,9 +2156,11 @@ rural
 rusty
 sadly
 safer
+saint
 salad
 sales
 salon
+salty
 sandy
 sassy
 satin
@@ -2255,12 +2262,14 @@ slide
 slime
 sling
 slink
+slips
 slits
 sloop
 slope
 sloth
 slots
 slows
+slump
 small
 smart
 smell
@@ -2274,7 +2283,10 @@ snafu
 snake
 sneak
 snide
+snipe
+snips
 snore
+snowy
 snuck
 socks
 soils
@@ -2291,6 +2303,7 @@ sound
 soups
 south
 space
+spade
 spank
 spare
 spark
@@ -2328,6 +2341,7 @@ stack
 staff
 stage
 stain
+stair
 stake
 stamp
 stand
@@ -2500,6 +2514,7 @@ trump
 trunk
 trust
 truth
+tubas
 tubes
 tulip
 tumor
@@ -2597,6 +2612,7 @@ widen
 wider
 widow
 width
+wimps
 winds
 windy
 wines

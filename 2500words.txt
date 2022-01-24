@@ -2253,6 +2253,7 @@ skins
 skits
 skirt
 skull
+slack
 slams
 slant
 slaps
@@ -2350,6 +2351,7 @@ stage
 stain
 stair
 stake
+stale
 stamp
 stand
 stank

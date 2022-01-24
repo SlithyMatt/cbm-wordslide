@@ -828,7 +828,6 @@ codes
 codex
 codon
 coeds
-cohos
 coifs
 coils
 coins
@@ -2010,6 +2009,7 @@ plead
 plonk
 plots
 plugs
+plumb
 poems
 point
 poked
@@ -2362,7 +2362,9 @@ steer
 stems
 steps
 stick
+sting
 stink
+stint
 stiff
 still
 stock

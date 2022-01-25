@@ -1471,7 +1471,6 @@ films
 filmy
 filth
 final
-finca
 finch
 finds
 fined
@@ -1648,6 +1647,7 @@ heads
 heals
 heard
 heaps
+hears
 heart
 heats
 heavy

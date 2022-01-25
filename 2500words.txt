@@ -1566,6 +1566,7 @@ gases
 gates
 gauge
 gaunt
+gazer
 gears
 geeks
 genes
@@ -1870,6 +1871,7 @@ model
 modem
 modes
 moist
+molar
 moldy
 moles
 money
@@ -2185,6 +2187,7 @@ scoop
 scope
 score
 scout
+scram
 scrap
 screw
 seals
@@ -2348,10 +2351,12 @@ stabs
 stack
 staff
 stage
+stags
 stain
 stair
 stake
 stale
+stall
 stamp
 stand
 stank
@@ -2579,6 +2584,7 @@ viral
 virus
 visas
 visit
+vista
 vital
 vivid
 vocal

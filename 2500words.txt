@@ -1376,7 +1376,6 @@ facts
 faded
 fader
 fades
-faery
 fails
 faint
 fairs
@@ -1529,6 +1528,7 @@ flown
 flows
 flues
 fluid
+flume
 flyer
 focal
 focus
@@ -1566,6 +1566,7 @@ gases
 gates
 gauge
 gaunt
+gavel
 gazer
 gears
 geeks
@@ -1741,6 +1742,7 @@ lance
 lands
 lanes
 lanky
+lapel
 large
 laser
 lasts
@@ -1764,6 +1766,7 @@ lemon
 levee
 level
 lever
+libel
 licks
 lifts
 light
@@ -1892,6 +1895,9 @@ moved
 moves
 movie
 mower
+muddy
+muggy
+mummy
 music
 muted
 myths
@@ -1911,6 +1917,7 @@ newly
 nexus
 nicer
 niche
+nicks
 night
 ninja
 ninth
@@ -2061,6 +2068,7 @@ prove
 proxy
 prude
 psalm
+puffy
 pulls
 pulse
 pumps
@@ -2069,7 +2077,10 @@ pupil
 puppy
 purge
 purse
+quack
+quart
 queen
+quell
 query
 quest
 queue
@@ -2082,6 +2093,7 @@ races
 racks
 radar
 radio
+raids
 rails
 rainy
 raise
@@ -2211,6 +2223,7 @@ shaft
 shake
 shall
 shame
+shank
 shape
 share
 shark
@@ -2260,6 +2273,7 @@ skirt
 skull
 slack
 slams
+slang
 slant
 slaps
 slate
@@ -2485,6 +2499,8 @@ title
 toast
 today
 token
+tombs
+tomes
 tones
 tongs
 tonic

@@ -1628,7 +1628,9 @@ guess
 guest
 guide
 guild
+guile
 guilt
+gulfs
 habit
 hairs
 halls

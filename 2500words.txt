@@ -1800,6 +1800,7 @@ loins
 loner
 longs
 looks
+loons
 loops
 loose
 lords
@@ -1826,6 +1827,7 @@ major
 maker
 makes
 males
+malts
 maple
 march
 marks
@@ -2078,6 +2080,7 @@ punch
 pupil
 puppy
 purge
+purrs
 purse
 quack
 quart
@@ -2644,6 +2647,7 @@ wheel
 where
 which
 while
+whirl
 white
 whole
 whose

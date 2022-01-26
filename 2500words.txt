@@ -1550,6 +1550,7 @@ freak
 fresh
 fried
 fries
+frogs
 front
 frost
 frown
@@ -1651,6 +1652,7 @@ heads
 heals
 heard
 heaps
+hears
 heart
 heats
 heavy
@@ -2593,6 +2595,7 @@ veins
 vents
 venue
 verse
+vials
 video
 views
 villa

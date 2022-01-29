@@ -1834,6 +1834,7 @@ marry
 masks
 masts
 match
+mated
 mates
 maths
 matte
@@ -1924,6 +1925,7 @@ nicks
 night
 ninja
 ninth
+nippy
 noble
 nodes
 noise
@@ -1970,6 +1972,7 @@ pains
 paint
 pairs
 pales
+paned
 panel
 pangs
 panic
@@ -2010,6 +2013,8 @@ piles
 pills
 pilot
 pinch
+pines
+pinks
 pipes
 pitch
 pixel
@@ -2222,6 +2227,7 @@ serve
 setup
 seven
 sewer
+shack
 shade
 shaft
 shake
@@ -2232,6 +2238,7 @@ shape
 share
 shark
 sharp
+shawl
 sheep
 sheer
 sheet
@@ -2450,6 +2457,7 @@ tales
 talks
 tangy
 tanks
+taped
 tapes
 tasks
 taste
@@ -2624,6 +2632,8 @@ waist
 waits
 walks
 walls
+waned
+wanes
 wants
 warns
 warps

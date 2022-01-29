@@ -1707,6 +1707,7 @@ intro
 isles
 issue
 items
+jazzy
 jeans
 jelly
 jewel
@@ -1937,6 +1938,7 @@ notch
 noted
 notes
 novel
+nudge
 nurse
 nylon
 oasis
@@ -2626,6 +2628,7 @@ voted
 voter
 votes
 wader
+waged
 wages
 wagon
 waist

@@ -1549,6 +1549,7 @@ fresh
 friar
 fried
 fries
+frill
 frogs
 front
 frost
@@ -1692,6 +1693,8 @@ human
 humor
 hunts
 hurts
+husks
+husky
 icons
 ideal
 ideas
@@ -2475,6 +2478,7 @@ tents
 tepid
 terms
 terra
+terse
 tests
 texts
 thank
@@ -2548,6 +2552,7 @@ tries
 tripe
 trips
 trite
+troll
 trope
 trout
 truce

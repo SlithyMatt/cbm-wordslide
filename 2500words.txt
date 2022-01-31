@@ -1554,6 +1554,7 @@ front
 frost
 frown
 fruit
+fudge
 fuels
 fully
 funds
@@ -1725,6 +1726,7 @@ kills
 kinda
 kinds
 kings
+kinks
 kneel
 knees
 knelt
@@ -1940,6 +1942,7 @@ nylon
 oasis
 occur
 ocean
+oddly
 offer
 often
 ogres
@@ -2393,6 +2396,7 @@ steam
 steel
 steep
 steer
+stein
 stems
 steps
 stick

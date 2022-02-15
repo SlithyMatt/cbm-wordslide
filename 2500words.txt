@@ -1718,6 +1718,7 @@ joins
 joint
 joked
 jokes
+jolts
 judge
 juice
 juicy
@@ -1809,6 +1810,7 @@ loops
 loose
 lords
 loses
+louts
 loved
 lover
 loves
@@ -2514,6 +2516,7 @@ title
 toast
 today
 token
+tolls
 tombs
 tomes
 toner
@@ -2529,6 +2532,7 @@ total
 touch
 tough
 tours
+touts
 towel
 tower
 towns

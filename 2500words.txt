@@ -1943,6 +1943,7 @@ novel
 nurse
 nylon
 oasis
+obese
 occur
 ocean
 oddly
@@ -2261,6 +2262,7 @@ shows
 shuts
 sides
 siege
+sieve
 sight
 sigma
 signs
@@ -2433,6 +2435,7 @@ stump
 stunk
 style
 sucks
+suede
 sugar
 suite
 suits

@@ -72,19 +72,19 @@ int main(int argc, char **argv) {
             }
             if ((i == 1) && (second_letter != letter)) {
                second_letter = letter;
-               word_lut[first_letter][second_letter] = addr + 26*26*2 + (uint16_t)count*5;
+               word_lut[first_letter][second_letter] = addr + 26*26*2 + (uint16_t)count*2;
             }
          }
          count++;
-         word_str[0] = (word_str[0] << 3) | ((0x1F & word_str[1]) >> 2);
-         word_str[1] = (word_str[1] << 6) | ((0x1F & word_str[2]));
+         word_str[0] = (word_str[2] << 3) | ((0x1F & word_str[3]) >> 2);
+         word_str[1] = (word_str[3] << 6) | ((0x1F & word_str[4]));
          fwrite(word_str,1,2,fpout);
       }
    }
 
    fclose(fpin);
 
-   fseek(fpout,2,SEEK_SET);
+   rewind(fpout);
    i = 1;
    if (*(char *)&i == 0) {
       /* convert big-endian addresses to little-endian */

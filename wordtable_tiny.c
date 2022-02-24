@@ -3,8 +3,8 @@
 #include <stdint.h>
 #include <ctype.h>
 
-#define DEFAULT_LOAD_ADDR 0x1000
-#define OUTPUT_FN "tinywords.bin"
+#define DEFAULT_LOAD_ADDR 0x2000
+#define OUTPUT_FN "WORDS.BIN"
 
 uint16_t word_lut[26][26];
 
@@ -42,6 +42,11 @@ int main(int argc, char **argv) {
    } else {
       addr = DEFAULT_LOAD_ADDR;
    }
+
+   word_str[0] = (uint8_t) (addr & 0xFF);
+   word_str[1] = (uint8_t) ((addr & 0xFF00) >> 8);
+
+   fwrite(word_str,1,2,fpout);
 
    for (first_letter = 0; first_letter < 26; first_letter++) {
       for (second_letter = 0; second_letter < 26; second_letter++) {

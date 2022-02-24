@@ -1,8 +1,44 @@
+.if .def(__VIC20__)
+INITMEM := $FD8D
+FRESTOR := $FD52
+INITVIA := $FDF9
+INITSK  := $E518
+
+INITVCTRS := $E45B
+INITBA    := $E3A4
+FREMSG    := $E404
+READY     := $C474
+
+.segment "LOADADDR"
+.export __LOADADDR__: absolute = 1
+.addr   *+2
+
+.segment "STARTUP"
+
+; Startup code
+.word   reset
+.word   $FEA9
+
+; Cart signature
+.byte   $41,$30,"CBM"
+
+reset:
+   jsr     INITMEM                 ; initialise and test RAM
+   jsr     FRESTOR                 ; restore default I/O vectors
+   jsr     INITVIA                 ; initialise I/O registers
+   jsr     INITSK                  ; initialise hardware
+
+   jsr     INITVCTRS               ; initialise BASIC vector table
+   jsr     INITBA                  ; initialise BASIC RAM locations
+   jsr     FREMSG                  ; print start up message and initialise memory pointers
+   cli                             ; enable interrupts
+.else
 .org $080D
 .segment "STARTUP"
 .segment "INIT"
 .segment "ONCE"
 .segment "CODE"
+.endif
 
    jmp start
 
@@ -73,11 +109,22 @@ filename:
 end_filename:
 FILENAME_LENGTH = end_filename - filename
 
-WORD_TABLE = $6000
+WORD_TABLE = $2000
 
 LUT_SIZE = 26*26*2
 
 WORD_ZERO = WORD_TABLE + LUT_SIZE
+
+LUT_AA = WORD_TABLE
+LUT_EA = WORD_TABLE + (4*26*2)
+LUT_HA = WORD_TABLE + (7*26*2)
+LUT_LA = WORD_TABLE + (11*26*2)
+LUT_PA = WORD_TABLE + (15*26*2)
+LUT_TA = WORD_TABLE + (19*26*2)
+LUT_WA = WORD_TABLE + (22*26*2)
+
+lut_segments:
+.word LUT_AA,LUT_EA,LUT_HA,LUT_LA,LUT_PA,LUT_TA,LUT_WA
 
 word_table_size:
 .res 2
@@ -177,6 +224,7 @@ start:
    sty random_seed+1
    eor random_seed+1
    sta random_seed+1
+.if .def(__C64__) || .def (__CX16__)
    ; load word table from disk
    lda #1
    ldx #8
@@ -191,35 +239,63 @@ start:
    ldy #>WORD_TABLE
    jsr LOAD
    sec
-   txa
-   sbc #<WORD_TABLE
+   stx word_table_size
+   sty word_table_size+1
+.else
+   ; determine VIC-20 word table size
+   ; first, search backwards from end of LUT
+   lda #<WORD_TABLE
+   clc
+   adc #<LUT_SIZE
+   sta ZP_PTR
+   lda #>WORD_TABLE
+   adc #>LUT_SIZE
+   sta ZP_PTR+1
+   dec ZP_PTR  ; Put base address for search 255 bytes before the end
+   ldy #255
+@lut_end_search:
+   lda (ZP_PTR),y
+   beq @calc_size_adjust
+   dey
+   lda (ZP_PTR),y
+   beq @calc_size
+   dey
+   bne @lut_end_search
+@calc_size_adjust:
+   dey
+@calc_size:
+   lda (ZP_PTR),y
+   tax
+   iny
+   lda (ZP_PTR),y
+   stx ZP_PTR
+   sta ZP_PTR+1
+   ldy #0
+@word_end_search:
+   lda (ZP_PTR),y
+   beq @set_size
+   dey
+   bne @word_end_search
+@set_size
+   tay
+   clc
+   adc ZP_PTR
    sta word_table_size
-   tya
-   sbc #>WORD_TABLE
+   lda ZP_PTR+1
+   adc #0
    sta word_table_size+1
+.endif
+   ; subtract base address + LUT size
    lda word_table_size
-   sbc #<LUT_SIZE
+   sec
+   sbc #<WORD_ZERO
    sta word_table_size
    lda word_table_size+1
-   sbc #>LUT_SIZE
+   sbc #>WORD_ZERO
    sta word_table_size+1
-   ; divide by 5 to get word count
-   lda #0
-   sta remainder
-   ldx #16
-@div5_loop:
-   asl word_table_size
-   rol word_table_size+1
-   rol remainder
-   lda remainder
-   sec
-   sbc #5
-   bcc @next_bit
-   sta remainder
-   inc word_table_size
-@next_bit:
-   dex
-   bne @div5_loop
+   ; divide by 2 to get word count
+   lsr word_table_size+1
+   ror word_table_size
 @start_game:
    ; display initial screen text
    ldx #0
@@ -272,20 +348,8 @@ start:
 @word_found:
    lda random_seed
    sta ZP_PTR              ; ZP_PTR = word index
-   asl
-   sta scratch
-   lda ZP_PTR+1
-   rol
-   sta scratch+1
-   asl scratch
-   rol scratch+1           ; scratch = word index * 4
-   lda scratch
-   clc
-   adc ZP_PTR
-   sta ZP_PTR
-   lda scratch+1
-   adc ZP_PTR+1
-   sta ZP_PTR+1            ; ZP_PTR = word index * 5
+   asl ZP_PTR
+   rol ZP_PTR+1            ; ZP_PTR = word index * 2
    lda ZP_PTR
    adc #<WORD_ZERO
    sta ZP_PTR
@@ -293,13 +357,118 @@ start:
    adc #>WORD_ZERO
    sta ZP_PTR+1            ; ZP_PTR = word address
    ; copy selected word to answer string variable
+   ; first, decode last three letters
    ldy #0
-@copy_loop:
    lda (ZP_PTR),y
-   sta answer,y
+   lsr
+   lsr
+   lsr
+   ora #$40
+   sta answer+2
+   lda (ZP_PTR),y
+   and #$07
+   asl
+   asl
+   ora #$40
+   sta answer+3
    iny
-   cpy #5
-   bne @copy_loop
+   lda (ZP_PTR),y
+   lsr
+   lsr
+   lsr
+   lsr
+   lsr
+   lsr
+   ora answer+3
+   sta answer+3
+   lda (ZP_PTR),y
+   and #$1F
+   ora #$40
+   sta answer+4
+   ; finally, find preceding address in LUT to get first two letters
+   lda ZP_PTR
+   sta scratch
+   lda ZP_PTR+1
+   sta scratch+1           ; scratch = word address
+   lda LUT_LA+1
+   cmp scratch+1
+   bmi @check_ea
+   bne @check_ta
+   lda LUT_LA
+   cmp scratch
+   bpl @check_ta
+@check_ea:
+   lda LUT_EA+1
+   cmp scratch+1
+   bmi @search_aa
+   bne @check_ha
+   lda LUT_EA
+   cmp scratch
+   bmi @search_aa
+@check_ha:
+   lda LUT_HA+1
+   cmp scratch+1
+   bmi @search_ea
+   bne @search_ha
+   lda LUT_HA
+   cmp scratch
+   bmi @search_ea
+   bpl @search_ha
+@check_ta:
+   lda LUT_TA+1
+   cmp scratch+1
+   bmi @check_pa
+   bne @check_wa
+   lda LUT_TA
+   cmp scratch
+   bpl @check_wa
+@check_pa:
+   lda LUT_PA+1
+   cmp scratch+1
+   bmi @search_la
+   bne @search_pa
+   lda LUT_PA
+   cmp scratch
+   bmi @search_la
+   bpl @search_pa
+@check_wa:
+   lda LUT_WA+1
+   cmp scratch+1
+   bmi @search_ta
+   bne @search_wa
+   lda LUT_WA
+   cmp scratch
+   bmi @search_ta
+   bpl @search_wa
+@search_aa:
+   ldx #0
+   beq @search_entry
+@search_ea:
+   ldx #2
+   bne @search_entry
+@search_ha:
+   ldx #4
+   bne @search_entry
+@search_la:
+   ldx #6
+   bne @search_entry
+@search_pa:
+   ldx #8
+   bne @search_entry
+@search_ta:
+   ldx #10
+   bne @search_entry
+@search_wa:
+   ldx #12
+@search_entry:
+   lda lut_segments,x
+   sta ZP_PTR
+   inx
+   lda lut_segments,x
+   sta ZP_PTR+1
+   ldy #0
+   ; TODO search for entries surrounding scratch
+
    ; initialize round
    lda #0
    sta guess_index

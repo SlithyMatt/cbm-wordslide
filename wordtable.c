@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <ctype.h>
 
-#define DEFAULT_LOAD_ADDR 0x6000
+#define DEFAULT_LOAD_ADDR 0x2000
 #define OUTPUT_FN "WORDS.BIN"
 
 uint16_t word_lut[26][26];
@@ -77,11 +77,13 @@ int main(int argc, char **argv) {
             }
             if ((i == 1) && (second_letter != letter)) {
                second_letter = letter;
-               word_lut[first_letter][second_letter] = addr + 26*26*2 + (uint16_t)count*5;
+               word_lut[first_letter][second_letter] = addr + 26*26*2 + (uint16_t)count*2;
             }
          }
          count++;
-         fwrite(word_str,1,5,fpout);
+         word_str[0] = (word_str[2] << 3) | ((0x1F & word_str[3]) >> 2);
+         word_str[1] = (word_str[3] << 6) | ((0x1F & word_str[4]));
+         fwrite(word_str,1,2,fpout);
       }
    }
 

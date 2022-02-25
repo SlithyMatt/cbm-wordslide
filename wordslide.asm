@@ -44,6 +44,8 @@ reset:
 
 .include "cbm_kernal.inc"
 
+; Constants
+
 load_text:
 .byte "loading...",0
 
@@ -69,12 +71,6 @@ screen_text:
 .byte " ",$C2,"asdfghjkl ",$C2,$0D
 .byte " ",$C2," zxcvbnm  ",$C2,$0D
 .byte " ",$AD,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$BD,0
-
-answer:
-.res 5
-
-letter_status:
-.res 26
 
 letter_coords:
 .byte 21,2  ; A
@@ -126,6 +122,26 @@ LUT_WA = WORD_TABLE + (22*26*2)
 lut_segments:
 .word LUT_AA,LUT_EA,LUT_HA,LUT_LA,LUT_PA,LUT_TA,LUT_WA
 
+not_word:
+.byte "not a word    ",0
+
+try_again:
+.byte "try again     ",0
+
+you_win:
+.byte "you win!      ",$0D," play again? y/n",0
+
+you_lose:
+.byte "the word was ",$0D," play again? y/n",0
+
+; Variables
+.if .def(__C64__) || .def (__CX16__)
+answer:
+.res 5
+
+letter_status:
+.res 26
+
 word_table_size:
 .res 2
 
@@ -148,17 +164,24 @@ guess:
 guess_colors:
 .res 5
 
-not_word:
-.byte "not a word    ",0
+last_address:
+.res 2
 
-try_again:
-.byte "try again     ",0
+.else
+; Fixed variable addresses for ROM-based build
+answer = $1200
+letter_status = answer+5
+word_table_size = letter_status+26
+scratch = word_table_size+2
+remainder = scratch+3
+guess_index = remainder
+correct = guess_index+1
+random_seed = correct+1
+guess = random_seed+2
+guess_colors = guess+5
+last_address = guess_colors+5
 
-you_win:
-.byte "you win!      ",$0D," play again? y/n",0
-
-you_lose:
-.byte "the word was ",$0D," play again? y/n",0
+.endif
 
 .if .def(__CX16__)
 ZP_PTR = $30
@@ -467,8 +490,69 @@ start:
    lda lut_segments,x
    sta ZP_PTR+1
    ldy #0
-   ; TODO search for entries surrounding scratch
-
+   lda (ZP_PTR),y
+   sta last_address
+   iny
+   lda (ZP_PTR),y
+   sta last_address+1
+   iny
+@search_loop:
+   ; search for entries surrounding scratch
+   lda (ZP_PTR),y
+   tax
+   iny
+   lda (ZP_PTR),y
+   iny
+   beq @reverse_lut
+   cmp #0
+   beq @search_loop
+   cmp scratch+1
+   bmi @update_last
+   bne @reverse_lut
+   cpx scratch
+   bmi @update_last
+   bpl @reverse_lut
+@update_last:
+   stx last_address
+   sta last_address+1
+   jmp @search_loop
+@reverse_lut:
+   ; preceding LUT address found, convert offset to letters
+   lda last_address
+   sec
+   sbc #<WORD_TABLE
+   sta last_address
+   lda last_address+1
+   sbc #>WORD_TABLE
+   sta last_address+1
+   ; divide by 52
+   lda #0
+   sta remainder
+   ldx #16
+@div52_loop:
+   asl last_address
+   rol last_address+1
+   rol remainder
+   lda remainder
+   sec
+   sbc #52
+   bcc @next_bit
+   sta remainder
+   inc last_address
+@next_bit:
+   dex
+   bne @div52_loop
+   ; division complete, first letter = integer quotient
+   lda last_address
+   clc
+   adc #$41
+   sta answer
+   ; second letter = remainder/2
+   lda remainder
+   lsr
+   clc
+   adc #$41
+   sta answer+1
    ; initialize round
    lda #0
    sta guess_index
@@ -668,6 +752,10 @@ play_round:
    lda (ZP_PTR),y
    beq @not_found
 @start_search:
+   lda ZP_PTR
+   sta last_address
+   lda ZP_PTR+1
+   sta last_address+1
    ldy #0
    lda (ZP_PTR),y
    sta scratch
@@ -676,6 +764,42 @@ play_round:
    sta ZP_PTR+1
    lda scratch
    sta ZP_PTR
+   ; compress guess for comparison
+   lda guess+2
+   asl
+   asl
+   asl
+   sta scratch
+   lda guess+3
+   and #$1F
+   lsr
+   lsr
+   ora scratch
+   sta scratch
+   lda guess+3
+   asl
+   asl
+   asl
+   asl
+   asl
+   asl
+   sta scratch+1
+   lda guess+4
+   and #$1F
+   ora scratch+1
+   sta scratch+1
+   ; find next non-zero LUT address
+   lda last_address
+   clc
+   adc #3
+   sta last_address
+   lda last_address+1
+   adc #0
+   sta last_address+1
+   ; TODO loop checking for non-zero address before WORD_ZERO
+   cmp #>WORD_ZERO
+
+
 @compare_word:
    ldy #0
    lda (ZP_PTR),y

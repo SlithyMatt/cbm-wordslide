@@ -185,10 +185,14 @@ last_address = guess_colors+5
 
 .if .def(__CX16__)
 ZP_PTR = $30
+ZP_PTR_2 = $32
 .elseif .def(__C64__)
 ZP_PTR = $FB
+ZP_PTR_2 = $FD
 .elseif .def(__VIC20__)
-ZP_PTR = $8B
+; Use tape variables, since we are ROM-based
+ZP_PTR = $9E
+ZP_PTR_2 = $A7
 .endif
 
 start:
@@ -299,7 +303,7 @@ start:
    beq @set_size
    dey
    bne @word_end_search
-@set_size
+@set_size:
    tay
    clc
    adc ZP_PTR
@@ -750,12 +754,13 @@ play_round:
    bne @start_search
    iny
    lda (ZP_PTR),y
-   beq @not_found
+   bne @start_search
+   jmp @not_found
 @start_search:
    lda ZP_PTR
-   sta last_address
+   sta ZP_PTR_2
    lda ZP_PTR+1
-   sta last_address+1
+   sta ZP_PTR_2+1
    ldy #0
    lda (ZP_PTR),y
    sta scratch
@@ -789,45 +794,75 @@ play_round:
    ora scratch+1
    sta scratch+1
    ; find next non-zero LUT address
+   lda ZP_PTR_2
+   clc
+   adc #2
+   sta ZP_PTR_2
+   lda ZP_PTR_2+1
+   adc #0
+   sta ZP_PTR_2+1
+   ldy #1
+   ; loop checking for non-zero address before WORD_ZERO
+@search_lut_loop:
+   cmp #>WORD_ZERO
+   bmi @check_lut_zero
+   lda ZP_PTR_2
+   cmp #<WORD_ZERO
+   bpl @set_list_end
+@check_lut_zero:
+   lda (ZP_PTR_2),y
+   bne @set_next_block
+   lda ZP_PTR_2
+   clc
+   adc #2
+   sta ZP_PTR_2
+   lda ZP_PTR_2+1
+   adc #0
+   sta ZP_PTR_2+1
+   jmp @search_lut_loop
+@set_next_block:
+   lda (ZP_PTR_2),y
+   sta last_address+1
+   dey
+   lda (ZP_PTR_2),y
+   sta last_address
+   jmp @compare_word
+@set_list_end:
+   lda word_table_size
+   asl
+   sta last_address
+   lda word_table_size+1
+   rol
+   sta last_address+1
    lda last_address
    clc
-   adc #3
+   adc #<WORD_ZERO
    sta last_address
    lda last_address+1
-   adc #0
+   adc #>WORD_ZERO
    sta last_address+1
-   ; TODO loop checking for non-zero address before WORD_ZERO
-   cmp #>WORD_ZERO
-
-
+   dey
 @compare_word:
-   ldy #0
    lda (ZP_PTR),y
-   cmp guess
-   bne @not_found
-   iny
-   lda (ZP_PTR),y
-   cmp guess+1
-   bne @not_found
-@next_letter:
-   iny
-   cpy #5
-   bne @compare_letter
-   jmp @found
-@compare_letter:
-   lda (ZP_PTR),y
-   cmp guess,y
+   cmp scratch
    bne @next_word
-   beq @next_letter
+   iny
+   lda (ZP_PTR),y
+   cmp scratch+1
+   beq @found
 @next_word:
    lda ZP_PTR
    clc
-   adc #5
+   adc #2
    sta ZP_PTR
    lda ZP_PTR+1
    adc #0
    sta ZP_PTR+1
-   jmp @compare_word
+   cmp last_address+1
+   bmi @compare_word
+   lda ZP_PTR
+   cmp last_address
+   bmi @compare_word
 @not_found:
    ldx #<not_word
    ldy #>not_word

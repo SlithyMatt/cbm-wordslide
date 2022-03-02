@@ -419,54 +419,56 @@ start:
    sta scratch+1           ; scratch = word address
    lda LUT_LA+1
    cmp scratch+1
-   bmi @check_ea
-   bne @check_ta
+   bmi @check_ta
+   bne @check_ea
    lda LUT_LA
    cmp scratch
+   beq @search_la
    bpl @check_ta
 @check_ea:
    lda LUT_EA+1
    cmp scratch+1
-   bmi @search_aa
-   bne @check_ha
+   bmi @check_ha
+   bne @search_aa
    lda LUT_EA
    cmp scratch
-   bmi @search_aa
+   beq @search_ea
+   bpl @search_aa
 @check_ha:
    lda LUT_HA+1
    cmp scratch+1
-   bmi @search_ea
-   bne @search_ha
+   bmi @search_ha
    lda LUT_HA
    cmp scratch
-   bmi @search_ea
-   bpl @search_ha
+   bmi @search_ha
+   bpl @search_ea
 @check_ta:
    lda LUT_TA+1
    cmp scratch+1
-   bmi @check_pa
-   bne @check_wa
+   bmi @check_wa
+   bne @check_pa
    lda LUT_TA
    cmp scratch
-   bpl @check_wa
+   bmi @check_wa
+   beq @search_ta
 @check_pa:
    lda LUT_PA+1
    cmp scratch+1
-   bmi @search_la
-   bne @search_pa
+   bmi @search_pa
+   bne @search_la
    lda LUT_PA
    cmp scratch
-   bmi @search_la
-   bpl @search_pa
+   bmi @search_pa
+   bpl @search_la
 @check_wa:
    lda LUT_WA+1
    cmp scratch+1
-   bmi @search_ta
-   bne @search_wa
+   bmi @search_wa
+   bne @search_ta
    lda LUT_WA
    cmp scratch
-   bmi @search_ta
-   bpl @search_wa
+   bmi @search_wa
+   bpl @search_ta
 @search_aa:
    ldx #0
    beq @search_entry
@@ -493,13 +495,11 @@ start:
    inx
    lda lut_segments,x
    sta ZP_PTR+1
-   ldy #0
-   lda (ZP_PTR),y
+   lda ZP_PTR
    sta last_address
-   iny
-   lda (ZP_PTR),y
+   lda ZP_PTR+1
    sta last_address+1
-   iny
+   ldy #0
 @search_loop:
    ; search for entries surrounding scratch
    lda (ZP_PTR),y
@@ -514,10 +514,17 @@ start:
    bmi @update_last
    bne @reverse_lut
    cpx scratch
-   bmi @update_last
+   beq @update_last
    bpl @reverse_lut
 @update_last:
-   stx last_address
+   tya
+   sec
+   sbc #2
+   clc
+   adc ZP_PTR
+   sta last_address
+   lda #0
+   adc ZP_PTR+1
    sta last_address+1
    jmp @search_loop
 @reverse_lut:
@@ -841,8 +848,8 @@ play_round:
    lda last_address+1
    adc #>WORD_ZERO
    sta last_address+1
-   dey
 @compare_word:
+   ldy #0
    lda (ZP_PTR),y
    cmp scratch
    bne @next_word

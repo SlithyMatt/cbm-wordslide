@@ -2199,6 +2199,7 @@ sandy
 sassy
 satin
 sauce
+sauna
 saved
 saves
 scale

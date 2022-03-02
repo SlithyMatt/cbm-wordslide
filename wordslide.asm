@@ -507,7 +507,7 @@ start:
    iny
    lda (ZP_PTR),y
    iny
-   beq @reverse_lut
+   ;beq @reverse_lut ; VICE 6510 doesn't clear Z on INY to non-zero value
    cmp #0
    beq @search_loop
    cmp scratch+1

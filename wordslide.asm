@@ -111,7 +111,7 @@ LUT_SIZE = 26*26*2
 
 WORD_ZERO = WORD_TABLE + LUT_SIZE
 
-LUT_AA = WORD_TABLE
+LUT_AB = WORD_TABLE + 2 ; Assuming there are no AA--- words
 LUT_EA = WORD_TABLE + (4*26*2)
 LUT_HA = WORD_TABLE + (7*26*2)
 LUT_LA = WORD_TABLE + (11*26*2)
@@ -120,7 +120,7 @@ LUT_TA = WORD_TABLE + (19*26*2)
 LUT_WA = WORD_TABLE + (22*26*2)
 
 lut_segments:
-.word LUT_AA,LUT_EA,LUT_HA,LUT_LA,LUT_PA,LUT_TA,LUT_WA
+.word LUT_AB,LUT_EA,LUT_HA,LUT_LA,LUT_PA,LUT_TA,LUT_WA
 
 not_word:
 .byte "not a word    ",0
@@ -422,54 +422,64 @@ start:
    bmi @check_ta
    bne @check_ea
    lda LUT_LA
-   cmp scratch
+   sec
+   sbc scratch
    beq @search_la
-   bpl @check_ta
+   bcc @check_ta
 @check_ea:
    lda LUT_EA+1
    cmp scratch+1
    bmi @check_ha
-   bne @search_aa
+   bne @search_ab
    lda LUT_EA
-   cmp scratch
+   sec
+   sbc scratch
    beq @search_ea
-   bpl @search_aa
+   bcs @search_ab
 @check_ha:
    lda LUT_HA+1
    cmp scratch+1
    bmi @search_ha
+   bne @search_ea
    lda LUT_HA
-   cmp scratch
-   bmi @search_ha
-   bpl @search_ea
+   sec
+   sbc scratch
+   beq @search_ha
+   bcc @search_ha
+   bcs @search_ea
 @check_ta:
    lda LUT_TA+1
    cmp scratch+1
    bmi @check_wa
    bne @check_pa
    lda LUT_TA
-   cmp scratch
-   bmi @check_wa
+   sec
+   sbc scratch
    beq @search_ta
+   bcc @check_wa
 @check_pa:
    lda LUT_PA+1
    cmp scratch+1
    bmi @search_pa
    bne @search_la
    lda LUT_PA
-   cmp scratch
-   bmi @search_pa
-   bpl @search_la
+   sec
+   sbc scratch
+   beq @search_pa
+   bcc @search_pa
+   bcs @search_la
 @check_wa:
    lda LUT_WA+1
    cmp scratch+1
    bmi @search_wa
    bne @search_ta
    lda LUT_WA
-   cmp scratch
-   bmi @search_wa
-   bpl @search_ta
-@search_aa:
+   sec
+   sbc scratch
+   beq @search_wa
+   bcc @search_wa
+   bcs @search_ta
+@search_ab:
    ldx #0
    beq @search_entry
 @search_ea:
@@ -869,7 +879,7 @@ play_round:
    bmi @compare_word
    lda ZP_PTR
    cmp last_address
-   bmi @compare_word
+   bne @compare_word
 @not_found:
    ldx #<not_word
    ldy #>not_word

@@ -194,7 +194,6 @@ atman
 atoll
 atoms
 atone
-atopy
 attic
 audio
 audit
@@ -1517,6 +1516,7 @@ flier
 flies
 fling
 flint
+flips
 float
 flock
 flood
@@ -1640,6 +1640,7 @@ halls
 hands
 handy
 hangs
+hanky
 happy
 hardy
 harsh
@@ -1711,6 +1712,7 @@ intro
 isles
 issue
 items
+jazzy
 jeans
 jelly
 jewel
@@ -1915,6 +1917,7 @@ nails
 naked
 named
 names
+nanny
 nasal
 nasty
 naval
@@ -2204,6 +2207,7 @@ saved
 saves
 scale
 scalp
+scams
 scans
 scare
 scarf

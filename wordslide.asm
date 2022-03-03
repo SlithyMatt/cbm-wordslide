@@ -237,8 +237,6 @@ start:
    sta $D40F ; voice 3 frequency high byte
    lda #$80  ; noise waveform, gate bit off
    sta $D412 ; voice 3 control register
-.elseif .def(__VIC20__)
-   ; TBD
 .endif
    jsr RDTIM
    pha
@@ -246,6 +244,10 @@ start:
    stx random_seed
    eor random_seed
    sta random_seed
+.if .def(__VIC20__)
+   ; use first byte for RND seed
+   sta #$8B
+.endif
    pla
    eor random_seed+1
    sty random_seed+1
@@ -287,6 +289,7 @@ start:
    lda (ZP_PTR),y
    beq @calc_size
    dey
+   cpy #0
    bne @lut_end_search
 @calc_size_adjust:
    dey
@@ -302,6 +305,7 @@ start:
    lda (ZP_PTR),y
    beq @set_size
    dey
+   cpy #0
    bne @word_end_search
 @set_size:
    tay
@@ -361,7 +365,15 @@ start:
    eor random_seed+1
    sta random_seed+1
 .elseif .def(__VIC20__)
-   ; TBD
+   ; call RND()
+   jsr $E094
+   ; consolidate mantissa to two bytes
+   lda $62
+   ora $63
+   sta random_seed
+   lda $64
+   ora $65
+   sta random_seed+1
 .endif
    lda random_seed+1
    and #$3F                ; clear top 2 bits to help keep in range
@@ -1076,7 +1088,43 @@ reverse_letter:   ; A = color, Y = letter index
    lda scratch
    sta (ZP_PTR,x) ; set color
 .elseif .def(__VIC20__)
-   ; TBD
+   lda #0
+   sta ZP_PTR+1
+   lda guess_index
+   asl
+   adc #4         ; A = row
+   asl
+   sta scratch    ; row * 2
+   asl
+   sta scratch+1  ; row * 4
+   asl
+   asl
+   sta ZP_PTR     ; ZP_PTR = row * 16
+   adc scratch
+   adc scratch+1  ; ZP_PTR = row * 22
+   rol ZP_PTR+1
+   sta ZP_PTR
+   lda $0288
+   sta ZP_PTR+1   ; ZP_PTR = start of row in screen RAM
+   tya
+   asl
+   adc #2
+   adc ZP_PTR
+   sta ZP_PTR
+   lda ZP_PTR+1
+   adc #0
+   sta ZP_PTR+1   ; ZP_PTR = letter position in screen RAM
+   stx scratch    ; scratch = color
+   ldx #0
+   lda (ZP_PTR,x) ; get screen code
+   ora #$80       ; reverse it
+   sta (ZP_PTR,x) ; update code
+   lda ZP_PTR+1
+   and #$03
+   ora #$94
+   sta ZP_PTR+1   ; ZP_PTR = letter position in color RAM
+   lda scratch
+   sta (ZP_PTR,x) ; set color
 .endif
    lda guess_colors,y
    rts

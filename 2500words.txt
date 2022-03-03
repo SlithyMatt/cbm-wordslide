@@ -1982,6 +1982,7 @@ pails
 pains
 paint
 pairs
+paled
 pales
 panel
 pangs
@@ -2612,6 +2613,7 @@ users
 using
 usual
 vague
+valet
 valid
 value
 valve

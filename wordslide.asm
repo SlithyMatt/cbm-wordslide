@@ -523,9 +523,11 @@ start:
    cmp scratch+1
    bmi @update_last
    bne @reverse_lut
-   cpx scratch
+   txa
+   sec
+   sbc scratch
    beq @update_last
-   bpl @reverse_lut
+   bcc @reverse_lut
 @update_last:
    tya
    sec

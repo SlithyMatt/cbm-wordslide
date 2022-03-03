@@ -527,7 +527,7 @@ start:
    sec
    sbc scratch
    beq @update_last
-   bcc @reverse_lut
+   bcs @reverse_lut
 @update_last:
    tya
    sec

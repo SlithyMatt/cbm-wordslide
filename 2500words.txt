@@ -1665,6 +1665,7 @@ helps
 hence
 herbs
 herds
+hider
 highs
 hills
 hilly
@@ -2508,6 +2509,7 @@ three
 threw
 throw
 thumb
+thump
 ticks
 tiger
 tight
@@ -2534,6 +2536,7 @@ tooth
 topic
 torch
 total
+toted
 touch
 tough
 tours

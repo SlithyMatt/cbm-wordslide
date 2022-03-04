@@ -50,55 +50,55 @@ load_text:
 .byte "loading...",0
 
 screen_text:
-.byte $92,$93,$8E,$05,$0D," word slide!",$0D,$0D
-.byte " ",$B0,$C3,$B2,$C3,$B2,$C3,$B2,$C3,$B2,$C3,$AE,$0D
-.byte " ",$C2," ",$C2," ",$C2," ",$C2," ",$C2," ",$C2,$0D
-.byte " ",$AB,$C3,$DB,$C3,$DB,$C3,$DB,$C3,$DB,$C3,$B3,$0D
-.byte " ",$C2," ",$C2," ",$C2," ",$C2," ",$C2," ",$C2,$0D
-.byte " ",$AB,$C3,$DB,$C3,$DB,$C3,$DB,$C3,$DB,$C3,$B3,$0D
-.byte " ",$C2," ",$C2," ",$C2," ",$C2," ",$C2," ",$C2,$0D
-.byte " ",$AB,$C3,$DB,$C3,$DB,$C3,$DB,$C3,$DB,$C3,$B3,$0D
-.byte " ",$C2," ",$C2," ",$C2," ",$C2," ",$C2," ",$C2,$0D
-.byte " ",$AB,$C3,$DB,$C3,$DB,$C3,$DB,$C3,$DB,$C3,$B3,$0D
-.byte " ",$C2," ",$C2," ",$C2," ",$C2," ",$C2," ",$C2,$0D
-.byte " ",$AB,$C3,$DB,$C3,$DB,$C3,$DB,$C3,$DB,$C3,$B3,$0D
-.byte " ",$C2," ",$C2," ",$C2," ",$C2," ",$C2," ",$C2,$0D
-.byte " ",$AD,$C3,$B1,$C3,$B1,$C3,$B1,$C3,$B1,$C3,$BD,$0D,$0D
+.byte $92,$93,$8E,$05,$0D," word slide!",$0D
+.byte " ",$B0,$C0,$B2,$C0,$B2,$C0,$B2,$C0,$B2,$C0,$AE,$0D
+.byte " ",$DD," ",$DD," ",$DD," ",$DD," ",$DD," ",$DD,$0D
+.byte " ",$AB,$C0,$DB,$C0,$DB,$C0,$DB,$C0,$DB,$C0,$B3,$0D
+.byte " ",$DD," ",$DD," ",$DD," ",$DD," ",$DD," ",$DD,$0D
+.byte " ",$AB,$C0,$DB,$C0,$DB,$C0,$DB,$C0,$DB,$C0,$B3,$0D
+.byte " ",$DD," ",$DD," ",$DD," ",$DD," ",$DD," ",$DD,$0D
+.byte " ",$AB,$C0,$DB,$C0,$DB,$C0,$DB,$C0,$DB,$C0,$B3,$0D
+.byte " ",$DD," ",$DD," ",$DD," ",$DD," ",$DD," ",$DD,$0D
+.byte " ",$AB,$C0,$DB,$C0,$DB,$C0,$DB,$C0,$DB,$C0,$B3,$0D
+.byte " ",$DD," ",$DD," ",$DD," ",$DD," ",$DD," ",$DD,$0D
+.byte " ",$AB,$C0,$DB,$C0,$DB,$C0,$DB,$C0,$DB,$C0,$B3,$0D
+.byte " ",$DD," ",$DD," ",$DD," ",$DD," ",$DD," ",$DD,$0D
+.byte " ",$AD,$C0,$B1,$C0,$B1,$C0,$B1,$C0,$B1,$C0,$BD,$0D,$0D
 .byte " guess the word ",$0D
 .byte "                ",$0D
-.byte " ",$B0,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$AE,$0D
-.byte " ",$C2,"qwertyuiop",$C2,$0D
-.byte " ",$C2,"asdfghjkl ",$C2,$0D
-.byte " ",$C2," zxcvbnm  ",$C2,$0D
-.byte " ",$AD,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$BD,0
+.byte " ",$B0,$C0,$C0,$C0,$C0,$C0,$C0,$C0,$C0,$C0,$C0,$AE,$0D
+.byte " ",$DD,"qwertyuiop",$DD,$0D
+.byte " ",$DD,"asdfghjkl ",$DD,$0D
+.byte " ",$DD," zxcvbnm  ",$DD,$0D
+.byte " ",$AD,$C0,$C0,$C0,$C0,$C0,$C0,$C0,$C0,$C0,$C0,$BD,0
 
 letter_coords:
-.byte 21,2  ; A
-.byte 22,7  ; B
-.byte 22,5  ; C
-.byte 21,4  ; D
-.byte 20,4  ; E
-.byte 21,5  ; F
-.byte 21,6  ; G
-.byte 21,7  ; H
-.byte 20,9  ; I
-.byte 21,8  ; J
-.byte 21,9  ; K
-.byte 21,10 ; L
-.byte 22,9  ; M
-.byte 22,8  ; N
-.byte 20,10 ; O
-.byte 20,11 ; P
-.byte 20,2  ; Q
-.byte 20,5  ; R
-.byte 21,3  ; S
-.byte 20,6  ; T
-.byte 20,8  ; U
-.byte 22,6  ; V
-.byte 20,3  ; W
-.byte 22,4  ; X
-.byte 20,7  ; Y
-.byte 22,3  ; Z
+.byte 20,2  ; A
+.byte 21,7  ; B
+.byte 21,5  ; C
+.byte 20,4  ; D
+.byte 19,4  ; E
+.byte 20,5  ; F
+.byte 20,6  ; G
+.byte 20,7  ; H
+.byte 19,9  ; I
+.byte 20,8  ; J
+.byte 20,9  ; K
+.byte 20,10 ; L
+.byte 21,9  ; M
+.byte 21,8  ; N
+.byte 19,10 ; O
+.byte 19,11 ; P
+.byte 19,2  ; Q
+.byte 19,5  ; R
+.byte 20,3  ; S
+.byte 19,6  ; T
+.byte 19,8  ; U
+.byte 21,6  ; V
+.byte 19,3  ; W
+.byte 21,4  ; X
+.byte 19,7  ; Y
+.byte 21,3  ; Z
 
 filename:
 .byte "words.bin"
@@ -246,7 +246,7 @@ start:
    sta random_seed
 .if .def(__VIC20__)
    ; use first byte for RND seed
-   sta #$8B
+   sta $8B
 .endif
    pla
    eor random_seed+1
@@ -273,21 +273,18 @@ start:
 .else
    ; determine VIC-20 word table size
    ; first, search backwards from end of LUT
-   lda #<WORD_TABLE
-   clc
-   adc #<LUT_SIZE
+   lda #<WORD_ZERO
    sta ZP_PTR
-   lda #>WORD_TABLE
-   adc #>LUT_SIZE
+   lda #>WORD_ZERO
    sta ZP_PTR+1
-   dec ZP_PTR  ; Put base address for search 255 bytes before the end
+   dec ZP_PTR+1  ; Put base address for search 255 bytes before the end
    ldy #255
 @lut_end_search:
    lda (ZP_PTR),y
-   beq @calc_size_adjust
+   bne @calc_size_adjust
    dey
    lda (ZP_PTR),y
-   beq @calc_size
+   bne @calc_size
    dey
    cpy #0
    bne @lut_end_search
@@ -610,7 +607,7 @@ start:
    ldx #<you_lose
    ldy #>you_lose
    jsr print_message
-   ldx #17
+   ldx #16
    ldy #14
    clc
    jsr PLOT
@@ -634,7 +631,7 @@ start:
    bne @play_again
    jmp @start_game
 @quit:
-   ldx #24
+   ldx #23
    ldy #0
    clc
    jsr PLOT
@@ -643,7 +640,7 @@ start:
 print_message: ; X/Y - address of null-terminated string
    stx ZP_PTR
    sty ZP_PTR+1
-   ldx #17
+   ldx #16
    ldy #1
    clc
    jsr PLOT
@@ -669,7 +666,7 @@ play_round:
    lda guess_index
    asl
    clc
-   adc #4
+   adc #3
    tax
    ldy #2
    clc
@@ -902,7 +899,7 @@ play_round:
    lda guess_index
    asl
    clc
-   adc #4
+   adc #3
    tax
    ldy #4
    clc
@@ -1042,7 +1039,7 @@ reverse_letter:   ; A = color, Y = letter index
    sta $9F20   ; low byte VRAM address = X coordinate (letter index*2 + 2)
    lda guess_index
    asl
-   adc #4
+   adc #3
    sta $9F21   ; high byte VRAM address = Y coordinate (guess index*2 + 4)
    stz $9F22   ; bank = 0, stride = 0
    lda $9F23   ; get screen code
@@ -1055,7 +1052,7 @@ reverse_letter:   ; A = color, Y = letter index
    sta ZP_PTR+1
    lda guess_index
    asl
-   adc #4         ; A = row
+   adc #3         ; A = row
    asl
    asl
    asl
@@ -1092,7 +1089,7 @@ reverse_letter:   ; A = color, Y = letter index
    sta ZP_PTR+1
    lda guess_index
    asl
-   adc #4         ; A = row
+   adc #3         ; A = row
    asl
    sta scratch    ; row * 2
    asl
@@ -1184,7 +1181,7 @@ correct_yellows:
    tay
    lda guess_index
    asl
-   adc #4
+   adc #3
    tax
    jsr PLOT
    pla

@@ -1246,7 +1246,6 @@ dweeb
 dwell
 dwelt
 dyads
-dyers
 dying
 dykes
 eager
@@ -1800,6 +1799,7 @@ loans
 lobby
 local
 locks
+locus
 lodge
 lofts
 logic
@@ -1890,8 +1890,10 @@ modem
 modes
 moist
 molar
+molds
 moldy
 moles
+molts
 money
 monks
 month

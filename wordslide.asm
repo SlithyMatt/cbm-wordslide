@@ -1105,6 +1105,7 @@ reverse_letter:   ; A = color, Y = letter index
    adc #0
    sta ZP_PTR+1
    lda $0288
+   adc ZP_PTR+1
    sta ZP_PTR+1   ; ZP_PTR = start of row in screen RAM
    tya
    asl

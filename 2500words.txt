@@ -2086,6 +2086,7 @@ proud
 prove
 proxy
 prude
+prune
 psalm
 puffy
 pulls
@@ -2488,6 +2489,7 @@ tempo
 tempt
 tends
 tenet
+tense
 tenth
 tents
 tepid

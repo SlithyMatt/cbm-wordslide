@@ -217,7 +217,7 @@ start:
    lda #0      ; black
    sta $D021   ; background color VIC-II register
 .elseif .def(__VIC20__)
-   lda #0      ; black background and border
+   lda #$08    ; black background and border, non-inverted
    sta $900F   ; background/border color VIC register
 .endif
    ; seed random number generator
@@ -1098,9 +1098,12 @@ reverse_letter:   ; A = color, Y = letter index
    asl
    sta ZP_PTR     ; ZP_PTR = row * 16
    adc scratch
-   adc scratch+1  ; ZP_PTR = row * 22
    rol ZP_PTR+1
+   adc scratch+1  ; ZP_PTR = row * 22
    sta ZP_PTR
+   lda ZP_PTR+1
+   adc #0
+   sta ZP_PTR+1
    lda $0288
    sta ZP_PTR+1   ; ZP_PTR = start of row in screen RAM
    tya

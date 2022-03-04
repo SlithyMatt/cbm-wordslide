@@ -2140,6 +2140,7 @@ refer
 reign
 relax
 relay
+remit
 renal
 reneg
 renew

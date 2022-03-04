@@ -217,7 +217,7 @@ start:
    lda #0      ; black
    sta $D021   ; background color VIC-II register
 .elseif .def(__VIC20__)
-   lda #$08    ; black background and border, non-inverted
+   lda #$0E    ; black background, blue border, non-inverted
    sta $900F   ; background/border color VIC register
 .endif
    ; seed random number generator

@@ -366,10 +366,10 @@ start:
    jsr $E094
    ; consolidate mantissa to two bytes
    lda $62
-   ora $63
+   eor $63
    sta random_seed
    lda $64
-   ora $65
+   eor $65
    sta random_seed+1
 .endif
    lda random_seed+1

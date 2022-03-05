@@ -1745,6 +1745,7 @@ knows
 label
 labor
 lacks
+ladle
 lakes
 lamer
 lamps
@@ -1848,6 +1849,7 @@ match
 mates
 maths
 matte
+mauve
 maybe
 mayor
 meals
@@ -1899,6 +1901,7 @@ money
 monks
 month
 moody
+moons
 moped
 mopes
 moral
@@ -2042,6 +2045,7 @@ plate
 plays
 plaza
 plead
+pleat
 plonk
 plots
 plugs
@@ -2520,6 +2524,7 @@ thump
 ticks
 tiger
 tight
+tiled
 tiles
 tilts
 timer

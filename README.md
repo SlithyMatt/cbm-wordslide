@@ -56,14 +56,19 @@ program files for different systems:
 
 * wsc64 - Commodore 64
 * WSX16.PRG - Commander X16
-* wsvic20 - Commodore VIC-20 (*still under development*)
 
 You will need both files for your desired target machine in a disk image, or
 have your emulator map your **cbm-wordslide** working directory to a virtual
 disk.
 
+For the VIC-20, it will generate a pair of cartridge ROM images:
+* wsvic20.carta
+* wsvic20.cart2
+
+These are formatted for use with VICE, as you will see below.
+
 ## Running
-At this time, you can run the game on a Commodore 64 or a Commander X16.
+At this time, you can run the game on a Commodore 64, a VIC-20 or a Commander X16.
 Just load the executable from the device containing your disk and run it.
 If you want to play the game in emulation, follow the steps below.
 
@@ -98,6 +103,20 @@ While that **LOADING...** message is visible, the game executable is loading
 **words.bin**, which will take a little while (it is, after all, emulating
 a floppy drive, and the file is over 13 kB). Once the loading is complete, you
 should see the game screen, and you are ready to play!
+
+### Commodore VIC-20 on VICE
+The VIC-20 doesn't have enough RAM in its baseline configuration to load everything
+from disk, so instead it needs to be cartridge-based. The cartridge ROM images
+can be loaded into VICE using the following from the host command line.
+
+```
+$ xvic -cartA wsvic20.carta -cart2 wsvic20.cart2
+```
+
+If you want to use different emmulation or build a physical cartridge, you may
+need differently formatted ROM images. These start with a two-byte address header
+for where they need to be loaded ($A000 and $2000, respectively). You may have to
+remove this header or replace it with a different one depending on your setup.
 
 ### Commander X16 Emulator
 From your **cbm-wordslide** working directory, launch the x16emu program (if it's

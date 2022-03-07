@@ -181,6 +181,11 @@ guess = random_seed+2
 guess_colors = guess+5
 last_address = guess_colors+5
 
+ready_prompt:
+.byte $92,$93,$8E,$05,$0D,"slithy games presents",$0D
+.byte "      word slide!",$0D,$0D
+.byte "   hit any key when",$0D
+.byte "you are ready to play!",0
 .endif
 
 .if .def(__CX16__)
@@ -219,6 +224,16 @@ start:
 .elseif .def(__VIC20__)
    lda #$0E    ; black background, blue border, non-inverted
    sta $900F   ; background/border color VIC register
+   ldx #0
+@print_ready:
+   lda ready_prompt,x
+   beq @wait_anykey
+   jsr CHROUT
+   inx
+   jmp @print_ready
+@wait_anykey:
+   jsr GETIN
+   beq @wait_anykey
 .endif
    ; seed random number generator
 .if .def (__CX16__)

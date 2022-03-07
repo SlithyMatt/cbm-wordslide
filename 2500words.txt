@@ -1521,6 +1521,7 @@ flock
 flood
 floor
 flour
+flout
 flown
 flows
 flues
@@ -1707,6 +1708,7 @@ inbox
 incur
 index
 indie
+inert
 inner
 input
 intro
@@ -2150,11 +2152,13 @@ remit
 renal
 reneg
 renew
+rents
 reply
 reset
 resin
 rests
 retro
+retry
 revel
 rider
 rides

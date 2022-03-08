@@ -110,7 +110,7 @@ from disk, so instead it needs to be cartridge-based. The cartridge ROM images
 can be loaded into VICE using the following from the host command line.
 
 ```
-$ xvic -cartA wsvic20.carta -cart2 wsvic20.cart2
+$ xvic -cartA wsvic20_a.crt -cart2 wsvic20_2.crt
 ```
 
 If you want to use different emmulation or build a physical cartridge, you may

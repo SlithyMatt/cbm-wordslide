@@ -62,8 +62,8 @@ have your emulator map your **cbm-wordslide** working directory to a virtual
 disk.
 
 For the VIC-20, it will generate a pair of cartridge ROM images:
-* wsvic20.carta
-* wsvic20.cart2
+* wsvic20_a.crt
+* wsvic20_2.crt
 
 These are formatted for use with VICE, as you will see below.
 

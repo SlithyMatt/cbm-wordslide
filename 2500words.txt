@@ -2265,6 +2265,7 @@ shall
 shame
 shank
 shape
+shard
 share
 shark
 sharp

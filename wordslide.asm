@@ -649,8 +649,7 @@ start:
    ldx #23
    ldy #0
    clc
-   jsr PLOT
-   rts
+   jmp PLOT
 
 print_message: ; X/Y - address of null-terminated string
    stx ZP_PTR
@@ -959,8 +958,7 @@ play_round:
    bne @keyboard_loop
    ; return to white text
    lda #$05
-   jsr CHROUT
-   rts
+   jmp CHROUT
 
 update_key: ; X = key index
    stx scratch
@@ -994,8 +992,7 @@ update_key: ; X = key index
 @clear:
    lda #$20
 @print:
-   jsr CHROUT
-   rts
+   jmp CHROUT
 
 compare_letter:   ; Y = letter index
    lda guess,y

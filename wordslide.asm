@@ -1054,9 +1054,10 @@ reverse_letter:   ; A = color, Y = letter index
    sta $9F20   ; low byte VRAM address = X coordinate (letter index*2 + 2)
    lda guess_index
    asl
-   adc #3
-   sta $9F21   ; high byte VRAM address = Y coordinate (guess index*2 + 4)
-   stz $9F22   ; bank = 0, stride = 0
+   adc #$B3
+   sta $9F21   ; high byte VRAM address = $B0 + Y coordinate (guess index*2 + 4)
+   lda #$01
+   sta $9F22   ; bank = 1, stride = 0
    lda $9F23   ; get screen code
    ora #$80    ; reverse it
    sta $9F23

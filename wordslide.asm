@@ -49,6 +49,9 @@ reset:
 load_text:
 .byte "loading...",0
 
+error_text:
+.byte 5, "can't find words.bin!",0
+
 screen_text:
 .byte $92,$93,$8E,$05,$0D," word slide!",$0D
 .byte " ",$B0,$C0,$B2,$C0,$B2,$C0,$B2,$C0,$B2,$C0,$AE,$0D
@@ -282,6 +285,17 @@ start:
    ldx #<WORD_TABLE
    ldy #>WORD_TABLE
    jsr LOAD
+   bcc @success
+   ldx #0
+@error_loop:
+   lda error_text,x
+   beq @error_quit
+   jsr CHROUT
+   inx
+   jmp @error_loop
+@error_quit:
+   jmp @quit
+@success:
    sec
    stx word_table_size
    sty word_table_size+1
